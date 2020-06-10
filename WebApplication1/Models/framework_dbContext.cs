@@ -1,30 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata;
 using WebApplication1.Models;
-using Login.Models;
 
-namespace WebApplication1.Others
+namespace Login.Models
 {
-    public class Context : DbContext
+    public partial class framework_dbContext : DbContext
     {
-      
-        //private const string connectionString = "Data Source=localhost,1433;Initial Catalog=mydata;User ID=SA;Password=Password123";
-
-        //private const string connectionString = "server=localhost;uid=root;password=;database=myproduct";
-
-        private const string connectionString = "server=localhost;port=3306;database=coffee;uid=root;password=20270907";
-
-        //internal object products;
-
-        //private const string connectionString = "";
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public framework_dbContext()
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseMySQL(connectionString);
+        }
 
+        public framework_dbContext(DbContextOptions<framework_dbContext> options)
+            : base(options)
+        {
         }
 
         public virtual DbSet<Activations> Activations { get; set; }
@@ -43,6 +32,15 @@ namespace WebApplication1.Others
         public virtual DbSet<Slide> Slide { get; set; }
         public virtual DbSet<Tintuc> Tintuc { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySQL("server=localhost; database=framework_db;user=root;pwd=20270907;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

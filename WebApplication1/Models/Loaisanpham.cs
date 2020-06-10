@@ -30,7 +30,7 @@ namespace WebApplication1.Models
         public String Tenloaisp { get; set; }
         public String Mota { get; set; }
         public String Hinhanh { get; set; }
-
-
+        public DateTime CreatedAt { get; internal set; }
+        public DateTime UpdatedAt { get; internal set; }
     }
 }

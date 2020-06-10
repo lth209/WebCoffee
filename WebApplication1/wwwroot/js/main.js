@@ -1,52 +1,37 @@
-
+﻿
 
 'use strict';
 
 (function ($) {
 
-    $(".fa_fa-shopping-cart").on("click", function () {
-        var recordAddToCart = $(this).attr("data-id");
-        if (recordAddToCart != '') {
-            // Perform the ajax post
-            $.post("/ShoppingCart/RemoveFromCart", { "id": recordAddToCart },
-                function (data) {
-                    // Successful requests get here
-                    // Update the page elements
-                    if (data.ItemCount == 0) {
-                        $('#row-' + data.DeleteId).fadeOut('slow');
-                    } else {
-                        $('#item-count-' + data.DeleteId).text(data.ItemCount);
-                    }
-                    $('#cart-total').text(data.CartTotal);
-                    $('#update-message').text(data.Message);
-                    $('#cart-status').text('Cart (' + data.CartCount + ')');
-                });
-        }
+/*Thêm vào giỏ hàng*/
+        $(".fa-shopping-cart").on("click", function () {
+            $("#LoginModal").modal();
+            var recordAddToCart = $(this).attr("data-id");
+            if (recordAddToCart != '') {
+                // Perform the ajax post
+                $.post("/Shoppingcart/AddToCart", { "id": recordAddToCart },
+                    function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        alert(data);
+                        if (data = "fail") {
+                            alert(data);
+                            $("#LoginModal").modal();
+                        }
+                    })
+            }
+        });
+    
+
+    $(".btn-login").on("click", function () {
+        window.location = "/DangNhap";
     });
 
     /*------------------
         Preloader
     --------------------*/
-    var filterList = {
-
-        init: function () {
-
-            // MixItUp plugin
-            // http://mixitup.io
-            $('.featured__filter').mixitup({
-
-                showOnLoad: 'caphe',
-                targetSelector: '.featured__filte.mix',
-                filterSelector: '.featured__controls li',
-                effects: ['fade'],
-                easing: 'snap',
-                // call the hover effect
-                onMixEnd: filterList.hoverEffect()
-            });
-
-        }
-    }
-    filterList.init();
+    
 
     $(window).on('load', function () {
         $(".loader").fadeOut();
