@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Login.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyConnection;
@@ -28,6 +29,7 @@ namespace WebApplication1.Controllers
         {
             ReadAllProducts();
             ReadAllProductTypes();
+            ViewData["cart"] = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
             return View();
         }
 
@@ -71,6 +73,7 @@ namespace WebApplication1.Controllers
            
         }
 
+        
         public void ReadAllProducts()
         {
             using (Context context = new Context())
