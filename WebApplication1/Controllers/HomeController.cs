@@ -29,6 +29,7 @@ namespace WebApplication1.Controllers
         {
             ReadAllProducts();
             ReadAllProductTypes();
+            ViewData["cart"] = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
             return View();
         }
 
@@ -72,6 +73,7 @@ namespace WebApplication1.Controllers
            
         }
 
+        
         public void ReadAllProducts()
         {
             using (Context context = new Context())

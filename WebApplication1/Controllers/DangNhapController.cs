@@ -25,7 +25,9 @@ namespace WebApplication1.Controllers
             var taikhoan = (from tk in dbContext.Users
                             where tk.Tentk == name && tk.Password == password
                             select tk) as List<Users>;
-   
+            /*Tự cấp vì chức năng dưới xài ko đc*/
+            HttpContext.Response.Cookies.Append("user_id", "22");
+           
             if (taikhoan != null )
             {
                 foreach (var item in taikhoan)
@@ -35,13 +37,12 @@ namespace WebApplication1.Controllers
                  
                     if (item.Tentk == name && item.Password == password && item.Maquyen == 1)
                     {
-                        HttpContext.Session.SetString("username", name);
-
+                        HttpContext.Response.Cookies.Append("user_id", item.Id.ToString());
                         return Redirect("~/");
                     }
                     if (item.Tentk == name && item.Password == password && item.Maquyen == 2)
                     {
-                        HttpContext.Session.SetString("username", name);
+                        HttpContext.Response.Cookies.Append("user_id", item.Id.ToString());
 
                         return Redirect("~/");
                     }
@@ -51,12 +52,12 @@ namespace WebApplication1.Controllers
             {
                 var Error1 = "Email hoặc password không đúng error1!";
                 ViewBag.Error = Error1;
-                return Redirect("~/");
+                return Redirect("/DangNhap");
             }
            // var Error = "Email hoặc password không đúng!";
           //  ViewBag.Error = Error;
 
-            return Redirect("~/");
+                return Redirect("/DangNhap");
             //  return RedirectToAction("Index", "Home");
         }
         public IActionResult LietKeUser()

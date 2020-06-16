@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models
 {
     public partial class Sanpham
     {
+        [Key]
         public int Masp { get; set; }
         public string Tensp { get; set; }
         public int Maloaisp { get; set; }

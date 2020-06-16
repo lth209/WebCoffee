@@ -29,6 +29,8 @@ namespace WebApplication1.Others
 
         public virtual DbSet<Activations> Activations { get; set; }
         public virtual DbSet<Ctdh> Ctdh { get; set; }
+        public virtual DbSet<Cart> Cart { get; set; }
+        public virtual DbSet<CartDetail> CartDetail { get; set; }
         public virtual DbSet<Cthd> Cthd { get; set; }
         public virtual DbSet<Dknt> Dknt { get; set; }
         public virtual DbSet<Donhang> Donhang { get; set; }
@@ -46,6 +48,14 @@ namespace WebApplication1.Others
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CartDetail>(entity => {
+                entity.ToTable("cartdetail");
+                entity.HasKey(c => new { c.CartId, c.Masp});
+            });
+            modelBuilder.Entity<Cart>(entity => {
+                entity.HasKey(e => e.CartId);
+                entity.ToTable("cart");
+            });
             modelBuilder.Entity<Activations>(entity =>
             {
                 entity.ToTable("activations");

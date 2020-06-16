@@ -51,7 +51,6 @@ namespace WebApplication1
             app.UseRouting();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
             app.UseSession();
             app.UseEndpoints(endpoints =>
                 {

@@ -6,18 +6,19 @@
 
 /*Thêm vào giỏ hàng*/
         $(".fa-shopping-cart").on("click", function () {
-            $("#LoginModal").modal();
             var recordAddToCart = $(this).attr("data-id");
             if (recordAddToCart != '') {
                 // Perform the ajax post
-                $.post("/Shoppingcart/AddToCart", { "id": recordAddToCart },
+                $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":"1" },
                     function (data) {
                         // Successful requests get here
-                        // Update the page elements
-                        alert(data);
-                        if (data = "fail") {
-                            alert(data);
+                        $(".shoping-bag > span").text(data.cart.amount);
+                        $(".total-price > span").text(data.cart.total);
+                        if (data.status == "not signin") {
                             $("#LoginModal").modal();
+                        }
+                        else {
+                            //update number
                         }
                     })
             }

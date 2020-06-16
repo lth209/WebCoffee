@@ -18,7 +18,6 @@ namespace WebApplication1.Models
             Masp = masp;
             Quantity = quantity;
         }
-
         [Key]
         public int CartId { get; set; }
         public int Masp { get; set; }
