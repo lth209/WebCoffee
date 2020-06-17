@@ -4,7 +4,7 @@
 
 (function ($) {
 
-/*Thêm vào giỏ hàng*/
+    /*Thêm vào giỏ hàng*/
         $(".fa-shopping-cart").on("click", function () {
             var recordAddToCart = $(this).attr("data-id");
             if (recordAddToCart != '') {
@@ -27,6 +27,24 @@
 
     $(".btn-login").on("click", function () {
         window.location = "/DangNhap";
+    });
+    /*thêm xóa giỏ hàng*/
+    $(".shoping__cart__item__close").on("click", function () {
+        var recordItem = $(this).attr("data-id");
+        alert(recordItem);
+        $(this).parent().remove();
+        if (recordItem != '') {
+            $.post("Shoppingcart/RemoveItem", { "masp": recordItem },
+                function (data) {
+                    if (data.status == "success") {
+                        $(".shoping-bag > span").text(data.cart.amount);
+                        $(".total-price > span").text(data.cart.total);
+                    }
+                    else {
+                        alert("không thành công");
+                    }
+                })
+        }
     });
 
     /*------------------
@@ -222,11 +240,13 @@
     /*-------------------
 		Quantity change
 	--------------------- */
+    /*Click gửi request xuống db */
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="dec qtybtn">-</span>');
     proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
+        var recordItem = $(this).parent().attr("data-id");
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
             var newVal = parseFloat(oldValue) + 1;
@@ -238,6 +258,21 @@
                 newVal = 0;
             }
         }
+        $.post("Shoppingcart/UpdateCartDetail", { "quantity": newVal, "masp": recordItem },
+            function (data) {
+                if (data.status == "success") {
+                    $(".shoping-bag > span").text(data.cart.amount);
+                    $(".total-price > span").text(data.cart.total);
+                    $(".total-cart > span").text(data.cart.total);
+                    $(".subtotal-cart > span").text(data.cart.total);
+                }
+                else {
+                    alert("không thành công");
+                }
+            })
+        var $item = $button.parent().parent().parent().parent();
+        var gia = $item.find(".shoping__cart__price").text();
+        $item.find(".shoping__cart__total").text(gia * newVal);
         $button.parent().find('input').val(newVal);
     });
 

@@ -14,7 +14,8 @@ namespace WebApplication1.Controllers
 {
     public class ShoppingcartController : Controller
     {
-        private int userid;
+        private int Userid;
+        private int Cartid;
 
         // GET: /<controller>/
         public IActionResult Index()
@@ -22,17 +23,19 @@ namespace WebApplication1.Controllers
             Cart a = new Cart();
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
-                userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
+                Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
 
                 a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
-                ViewData["items"] = getCartDetail(a.CartId);
+                Cartid = a.CartId;
+                ViewData["items"] = getListItemInCart(a.CartId);
+                ViewData["cartdetails"] = getListOfCartDetail(a.CartId);
                 Console.WriteLine("yo");
             }
             ViewData["cart"] = a;
             return View();
         }
 
-        public List<Sanpham> getCartDetail(int cartid)
+        public List<Sanpham> getListItemInCart(int cartid)
         {
             using (Context context = new Context())
             {
@@ -46,6 +49,15 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public List<CartDetail> getListOfCartDetail(int cartid)
+        {
+            using (Context context = new Context())
+            {
+                List<Sanpham> products = new List<Sanpham>();
+                var cd = context.CartDetail.Where(p => p.CartId == cartid).ToList();
+                return cd;
+            }
+        }
         [HttpPost]
         public IActionResult AddToCart(int masp, int quantity)
         {
@@ -123,6 +135,75 @@ namespace WebApplication1.Controllers
                 {
                     Console.WriteLine("Thêm sp vào cart thành công!");
                 }
+            }
+        }
+
+        [HttpPost]
+        public IActionResult RemoveItem(int masp)
+        {
+            using (Context context = new Context())
+            {
+                Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
+                Cart a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
+                var cd = context.CartDetail.Where(p => p.Masp == masp && p.CartId == a.CartId).Single();
+                context.CartDetail.Remove(cd);
+                int res = context.SaveChanges();
+                if (res > 0)
+                {
+                    a = UpdateCart(a.CartId);
+                    var mess = new
+                    {
+                        cart = a,
+                        Status= "success"
+                    }; 
+                    return Json(mess);
+                }
+                return Json("fail");
+            }
+        }
+
+        public Cart UpdateCart(int cartid)
+        {
+            using (Context context = new Context())
+            {
+                var cart = context.Cart.Where(p => p.CartId == cartid).Single();
+                var cds = context.CartDetail.Where(p => p.CartId == cartid).ToList();
+                List<Sanpham> items = getListItemInCart(cartid);
+                int newQuantity = 0;
+                float newTotal = 0;
+                foreach (var cd in cds)
+                {
+                    newQuantity += cd.Quantity;
+                    newTotal += cd.Quantity * items.Find(p => p.Masp == cd.Masp).Gia;
+                }
+                cart.Amount = newQuantity;
+                cart.Total = newTotal;
+                context.SaveChanges();
+                return cart;
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCartDetail(int quantity, int masp)
+        {
+            Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
+            Cart a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
+            using (Context context = new Context())
+            {
+                var cd = context.CartDetail.Where(p => p.CartId == a.CartId && p.Masp == masp).Single();
+                cd.Quantity = quantity;
+                int res = context.SaveChanges();
+                if (res > 0)
+                {
+                    a = UpdateCart(a.CartId);
+                    var mess = new
+                    {
+                        cart = a,
+                        Status = "success"
+                    };
+                    return Json(mess);
+                }
+                return Json("fail");
             }
         }
     }

@@ -3,6 +3,7 @@
     ViewData["Title"] = "Index";
     var items = ViewData["items"] as List<Sanpham>;
     var cart = ViewData["cart"] as Cart;
+    var cds = ViewData["cartdetails"] as List<CartDetail>;
 }
 
 <section class="breadcrumb-section set-bg" data-setbg="../img/breadcrumb.jpg">
@@ -46,25 +47,26 @@
                             <tbody>
                                 @foreach (var item in items)
                                 {
-                                    <tr>
+                                    var total = item.Gia * cds.Find(p => p.Masp == item.Masp).Quantity;
+                                    <tr class="item-in-cart">
                                         <td class="shoping__cart__item">
                                             <img src="../img/product/@item.Hinhanh" alt="" style="max-width: 20%">
-                                            <h5>Vegetable’s Package</h5>
+                                            <h5>@item.Tensp</h5>
                                         </td>
                                         <td class="shoping__cart__price">
                                             @item.Gia
                                         </td>
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" value="1">
+                                                <div class="pro-qty" data-id="@item.Masp">
+                                                    <input type="text" value="@cds.Find(p => p.Masp == item.Masp).Quantity">
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="shoping__cart__total">
-                                            @item.Gia <!--Se thay doi tiep-->
+                                            @total
                                         </td>
-                                        <td class="shoping__cart__item__close">
+                                        <td class="shoping__cart__item__close" data-id="@item.Masp">
                                             <span class="icon_close"></span>
                                         </td>
                                     </tr>
@@ -101,8 +103,8 @@
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-                        <li>Subtotal <span>@cart.Total</span></li>
-                        <li>Total <span>@cart.Total</span></li>
+                        <li class="subtotal-cart">Subtotal <span>@cart.Total</span></li>
+                        <li class="total-cart">Total <span>@cart.Total</span></li>
                     </ul>
                     <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
