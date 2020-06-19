@@ -159,7 +159,8 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a class="shoping-bag"  asp-controller="Shoppingcart" asp-action="Index"><i class="fa fa-shopping-bag"></i> <span>@cart.Amount</span></a></li>
+                            <li><a class="shoping-bag"  asp-controller="Shoppingcart" asp-action="Index"
+                                   data-toggle="popover" data-content="Thêm vào giỏ hàng thành công!"><i class="fa fa-shopping-bag"></i> <span>@cart.Amount</span></a></li>
                         </ul>
                         <div class="header__cart__price total-price">Tổng tiền: <span>@cart.Total</span></div>
                     </div>

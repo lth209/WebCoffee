@@ -11,7 +11,7 @@ namespace MyConnection
             int port = 3306;
             string database = "coffee";
             string username = "root";
-            string password = "20270907";
+            string password = "";
 
 
             String connString = "Server=" + host + ";Database=" + database

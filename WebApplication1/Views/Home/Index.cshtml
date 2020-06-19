@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Sanpham
+@{
     ViewData["Title"] = "Home Page";
     var test = ViewData["name"];
     var products = ViewData["product"] as List<Sanpham>;
@@ -79,7 +80,11 @@
                     {
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="img/product/@product.Hinhanh">
-                                <h5><a href="#">@product.Tensp</a></h5>
+                                <h5>
+                                    <a asp-controller="ProductDetail"
+                                       asp-action="Detail"
+                                       asp-route-id="@product.Masp">@product.Tensp</a>
+                                </h5>
                             </div>
                         </div>
                     }
@@ -118,12 +123,16 @@
                         <div class="featured__item__pic set-bg" data-setbg="img/product/@product.Hinhanh">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a asp-controller="ProductDetail"
+                                       asp-action="Detail"
+                                       asp-route-id="@product.Masp"><i class="fa fa-info"></i></a></li>
                                 <li><a href="#" class="fa fa-shopping-cart" data-id="@product.Masp"></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">@product.Tensp</a></h6>
+                            <h6><a asp-controller="ProductDetail"
+                                       asp-action="Detail"
+                                       asp-route-id="@product.Masp">@product.Tensp</a></h6>
                             <h5>@product.Gia</h5>
                         </div>
                     </div>
@@ -131,7 +140,7 @@
 
             }
 
-            
+
         </div>
     </div>
 </section>
@@ -142,12 +151,12 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="banner__pic">
-                    <img src="img/banner/banner-1.jpg" alt="">
+                    <img src="../img/banner/banner-1.jpg" alt="">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="banner__pic">
-                    <img src="img/banner/banner-2.jpg" alt="">
+                    <img src="../img/banner/banner-2.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -167,7 +176,7 @@
                             {
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="../img/product/@bestsellers[i].Hinhanh" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>@bestsellers[i].Tensp</h6>
@@ -181,7 +190,7 @@
                             {
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="../img/product/@bestsellers[i].Hinhanh" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>@bestsellers[i].Tensp</h6>

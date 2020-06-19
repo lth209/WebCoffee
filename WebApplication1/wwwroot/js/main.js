@@ -12,13 +12,16 @@
                 $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":"1" },
                     function (data) {
                         // Successful requests get here
-                        $(".shoping-bag > span").text(data.cart.amount);
-                        $(".total-price > span").text(data.cart.total);
                         if (data.status == "not signin") {
                             $("#LoginModal").modal();
                         }
                         else {
                             //update number
+                            $(".shoping-bag > span").text(data.cart.amount);
+                            $(".total-price > span").text(data.cart.total);
+                            $(".total-cart > span").text(data.cart.total);
+                            $(".subtotal-cart > span").text(data.cart.total);
+                            $(".shoppịng-bag").popover("show");
                         }
                     })
             }
@@ -47,6 +50,24 @@
         }
     });
 
+/*Nút thêm vào giỏ ở chi tiết*/
+    $(".btn-add-to-cart").on("click", function () {
+        var newVal = $(this).parent().find("input").val();
+        var recordItem = $(this).attr("data-id");
+        $.post("/Shoppingcart/AddToCart", { "masp": recordItem, "quantity": newVal },
+            function (data) {
+                // Successful requests get here
+                if (data.status == "not signin") {
+                    $("#LoginModal").modal();
+                }
+                else {
+                    //update number
+                    $(".shoping-bag > span").text(data.cart.amount);
+                    $(".total-price > span").text(data.cart.total);
+                    $(".shopping-bag").popover("show");
+                }
+            })
+    });
     /*------------------
         Preloader
     --------------------*/
@@ -240,11 +261,29 @@
     /*-------------------
 		Quantity change
 	--------------------- */
-    /*Click gửi request xuống db */
-    var proQty = $('.pro-qty');
+    var proQty = $('.pro-qty-not-add');
     proQty.prepend('<span class="dec qtybtn">-</span>');
     proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+    });
+    /*Click gửi request xuống db */
+    var proQtyAdd = $('.pro-qty-add');
+    proQtyAdd.prepend('<span class="dec qtybtn">-</span>');
+    proQtyAdd.append('<span class="inc qtybtn">+</span>');
+    proQtyAdd.on('click', '.qtybtn', function () {
         var $button = $(this);
         var recordItem = $(this).parent().attr("data-id");
         var oldValue = $button.parent().find('input').val();
@@ -252,10 +291,10 @@
             var newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
+            if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
         $.post("Shoppingcart/UpdateCartDetail", { "quantity": newVal, "masp": recordItem },
