@@ -32,5 +32,14 @@ namespace WebApplication1.Others
                 return res;
             }
         }
+
+        public static Khachhang getCurrentUser(int userid)
+        {
+            using(Context context = new Context())
+            {
+                var user = context.Khachhang.Where(p => p.Matk == userid).Single();
+                return user;
+            }
+        }
     }
 }

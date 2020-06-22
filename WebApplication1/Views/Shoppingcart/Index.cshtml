@@ -21,6 +21,55 @@
         </div>
     </div>
 </section>
+<section class="stepper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="bs-stepper">
+                    <div class="bs-stepper-header" role="tablist">
+                        <!-- your steps here -->
+                        <div class="step active" data-target="#logins-part">
+                            <button type="button" disabled="disabled" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">Đăng nhập</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step active" data-target="#information-part">
+                            <a asp-controller="Shoppingcart"
+                               asp-action="Index">
+                                <button type="button" class="step-trigger"
+                                        role="tab" aria-controls="information-part" id="information-part-trigger">
+                                    <span class="bs-stepper-circle">2</span>
+                                    <span class="bs-stepper-label">Chọn món</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#information-part">
+                            <button type="button" class="step-trigger" disabled="disabled" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                <span class="bs-stepper-circle">3</span>
+                                <span class="bs-stepper-label">Xác nhận/thanh toán</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#information-part">
+                            <button type="button" disabled="disabled" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                <span class="bs-stepper-circle">4</span>
+                                <span class="bs-stepper-label">Hoàn tất</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger"></div>
+                        <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Breadcrumb Section End -->
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad">
@@ -106,7 +155,7 @@
                         <li class="subtotal-cart">Subtotal <span>@cart.Total</span></li>
                         <li class="total-cart">Total <span>@cart.Total</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <a asp-controller="CheckOut" asp-action="Index" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>

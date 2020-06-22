@@ -5,7 +5,9 @@ namespace WebApplication1.Models
 {
     public partial class Khachhang
     {
-        public uint Makh { get; set; }
+        public string Country { get; set; }
+        public string Tenduong { get; set; }
+        public int Makh { get; set; }
         public string Hoten { get; set; }
         public string Gioitinh { get; set; }
         public string Email { get; set; }
