@@ -15,7 +15,7 @@ namespace WebApplication1.Others
 
         //private const string connectionString = "server=localhost;uid=root;password=;database=myproduct";
 
-        private const string connectionString = "server=localhost;port=3306;database=coffee;uid=root;password=";
+        private const string connectionString = "server=localhost;port=3306;database=coffee;uid=root;password=; convert zero datetime=True";
 
         //internal object products;
 

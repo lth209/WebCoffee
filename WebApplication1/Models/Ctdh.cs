@@ -6,6 +6,20 @@ namespace WebApplication1.Models
 {
     public partial class Ctdh
     {
+        public Ctdh()
+        {
+        }
+
+        public Ctdh(int madh, int masp, int soluong, double gia, DateTime? createdAt, DateTime? updatedAt)
+        {
+            Madh = madh;
+            Masp = masp;
+            Soluong = soluong;
+            Gia = gia;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+        }
+
         [Key]
         public int MaCtdh { get; set; }
         public int Madh { get; set; }
