@@ -144,7 +144,7 @@ namespace WebApplication1.Controllers
                 headerbody += chitiet;
                 headerbody += "</tbody> <tfoot style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px\"> <tr> <td align=\"right\" colspan=\"4\" style=\"padding:5px 9px\">Tổng tạm tính</td> <td align=\"right\" style=\"padding:5px 9px\"><span>" + dh.Tongtien + " ₫</span></td> </tr> <tr> <td align=\"right\" colspan=\"4\" style=\"padding:5px 9px\">Giảm giá</td> <td align=\"right\" style=\"padding:5px 9px\"><span>0 ₫</span></td> </tr> <tr> <td align=\"right\" colspan=\"4\" style=\"padding:5px 9px\">Phí vận chuyển</td> <td align=\"right\" style=\"padding:5px 9px\"><span>0 ₫</span></td> </tr> <tr bgcolor=\"#eee\"> <td align=\"right\" colspan=\"4\" style=\"padding:7px 9px\"><strong><big>Tổng giá trị đơn hàng</big> </strong></td> <td align=\"right\" style=\"padding:7px 9px\"><strong><big><span>" + dh.Tongtien + " ₫</span> </big> </strong></td> </tr> </tfoot> </table> </td> </tr> <tr> <td>  <p style=\"font-family:Arial,Helvetica,sans-serif;font-size:12px;margin:0;padding:0;line-height:18px;color:#444;font-weight:bold\">Một lần nữa Feel Coffee cảm ơn quý khách.</p> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table>";
             }
-            _emailSender.Send(email, "Xác nhận đơn hàng", headerbody);
+            _emailSender.Send(email, "Xác nhận đơn hàng #"+madh, headerbody);
         }
     }
 }
