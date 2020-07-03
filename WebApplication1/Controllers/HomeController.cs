@@ -33,10 +33,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -44,6 +40,10 @@ namespace WebApplication1.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult UnauthorizedAccess()
+        {
+            return View("Views/Shared/UnauthorizedAccess.cshtml");
+        }
         public void loadNameProduct()
         {
 

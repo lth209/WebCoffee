@@ -32,6 +32,7 @@ namespace WebApplication1.Controllers
                 Console.WriteLine("yo");
             }
             ViewData["cart"] = a;
+            ViewData["isSignin"] = "not";
             return View();
         }
 

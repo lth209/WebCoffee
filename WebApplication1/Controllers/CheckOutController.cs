@@ -24,9 +24,29 @@ namespace WebApplication1.Controllers
         {
             _emailSender = emailSender;
         }
-
+        public Boolean CheckRole()
+        {
+            string uid = HttpContext.Request.Cookies["user_id"];
+            if (uid != null)
+            {
+                int id = int.Parse(uid);
+                using (Context context = new Context())
+                {
+                    Users currentuser = context.Users.Where(p => p.Id == id).Single();
+                    if (currentuser.Maquyen == 2)   //Admin
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public IActionResult Index()
         {
+            if (!CheckRole())
+            {
+                return View("Views/Shared/UnauthorizedAccess.cshtml");
+            }
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
                 Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
@@ -64,21 +84,29 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult PlaceOrder(string hoten, string country, string tenduong, string diachi, string sdt, string email, string ghichu)
         {
+            if (!CheckRole())
+            {
+                return RedirectToAction("UnauthorizedAccess", "Home");
+            }
             Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
             user = Function.getCurrentUser(Userid);
             DateTime ngaydat = DateTime.Now;
-            int madh = AddToOrder(user.Makh, ngaydat, ghichu);
+            String address = tenduong + ", " + diachi + ", " + country;
+            int madh = AddToOrder(user.Makh, ngaydat, ghichu, address, hoten, sdt);
             sendMail(madh, hoten, country, tenduong, diachi, sdt, email, ghichu);
             ViewData["cart"] = new Cart();
             return View();        
         }
-         public int AddToOrder(int makh, DateTime ngaydat, string ghichu)
+         public int AddToOrder(int makh, DateTime ngaydat, string ghichu, string diachi, string hoten, string sdt)
         {
             a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
             cds = GetCartDetail(a.CartId);
             using (Context context = new Context())
             {
                 Donhang o = new Donhang(makh, ngaydat, a.Total, "ATM", ghichu, ngaydat);
+                o.Diachi = diachi;
+                o.Hoten = hoten;
+                o.Sdt = sdt;
                 context.Donhang.Add(o);
                 int row = context.SaveChanges();
                 if (row > 0)
