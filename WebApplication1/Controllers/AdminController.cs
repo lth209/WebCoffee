@@ -81,6 +81,8 @@ namespace WebApplication1.Controllers
                 od.Soluong = quantity;
                 od.Gia = p.Find(p => p.Masp == product).Gia * quantity;
                 context.Ctdh.Add(od);
+                var order = context.Donhang.Where(p => p.Madh == od.Madh).Single();
+                order.Tongtien += (float) od.Gia;
                 int row = context.SaveChanges();
                 return RedirectToAction("OrderDetail", "Admin", new { id = id });
             }
@@ -113,7 +115,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditOrder(int id, String hoten, String sdt, String diachi)
+        public IActionResult EditOrder(int id, String hoten, String sdt, String diachi, int tt)
         {
             if (!CheckRole())
             {
@@ -129,6 +131,7 @@ namespace WebApplication1.Controllers
                 o.Hoten = hoten;
                 o.Sdt = sdt;
                 o.Diachi = diachi;
+                o.Tttt = tt;
                 context.SaveChanges();
                 return RedirectToAction("OrderDetail", "Admin", new { id = id });
             }
@@ -208,7 +211,6 @@ namespace WebApplication1.Controllers
         /*CHART*/
         public IActionResult ChartAtOrder()
         {
-
             return View("Views/Admin/Chart/OrderChart.cshtml");
         }
 

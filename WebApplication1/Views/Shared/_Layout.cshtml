@@ -43,7 +43,7 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a asp-controller="Shoppingcart" asp-action="Index"><i class="fa fa-shopping-bag"></i> <span>@cart.Amount</span></a></li>
+                <li><a class="shopping-bag" data-toggle="popover" data-content="Thêm vào giỏ hàng thành công!" asp-controller="Shoppingcart" asp-action="Index"><i class="fa fa-shopping-bag"></i> <span>@cart.Amount</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>@cart.Total</span></div>
         </div>

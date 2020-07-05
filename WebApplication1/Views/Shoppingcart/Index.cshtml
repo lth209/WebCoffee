@@ -4,6 +4,7 @@
     var items = ViewData["items"] as List<Sanpham>;
     var cart = ViewData["cart"] as Cart;
     var cds = ViewData["cartdetails"] as List<CartDetail>;
+    var a =  ViewData["isSignin"];
 }
 
 <section class="breadcrumb-section set-bg" data-setbg="../img/breadcrumb.jpg">
@@ -72,7 +73,7 @@
 </section>
 <!-- Breadcrumb Section End -->
 <!-- Shoping Cart Section Begin -->
-@if (ViewData["isSignin"] == null)
+@if (a != null)
 {
     <section class="shoping-cart spad">
         <div class="container">

@@ -21,7 +21,7 @@
                             $(".total-price > span").text(data.cart.total);
                             $(".total-cart > span").text(data.cart.total);
                             $(".subtotal-cart > span").text(data.cart.total);
-                            $(".shoppịng-bag").popover("show");
+                            $(".shopping-bag").popover("show");
                         }
                     })
             }

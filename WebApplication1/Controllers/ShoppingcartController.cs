@@ -29,10 +29,10 @@ namespace WebApplication1.Controllers
                 Cartid = a.CartId;
                 ViewData["items"] = getListItemInCart(a.CartId);
                 ViewData["cartdetails"] = getListOfCartDetail(a.CartId);
+                ViewData["isSignin"] = Userid;
                 Console.WriteLine("yo");
             }
             ViewData["cart"] = a;
-            ViewData["isSignin"] = "not";
             return View();
         }
 

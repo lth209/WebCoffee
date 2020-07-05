@@ -44,6 +44,7 @@
                                     <th>Mã khách hàng</th>
                                     <th>Tổng tiền</th>
                                     <th>Ngày đặt</th>
+                                    <th>Tình trạng</th>
                                     <th>Chi tiết</th>
                                 </tr>
                             </thead>
@@ -51,19 +52,27 @@
 
                                 @foreach (var od in orders)
                                 {
-                                    <tr>
-                                        <td>@od.Madh</td>
-                                        <td>@od.Makh</td>
-                                        <td>@od.Tongtien</td>
-                                        <td>@od.Ngaydat</td>
-                                        <td>
-                                            <form asp-controller="Admin" asp-action="OrderDetail" asp-route-id="@od.Madh" method="post">
-                                                <button class="btn btn-outline-success">
-                                                    <i class="fa fa-edit"></i> Detail
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@od.Madh</td>
+                                    <td>@od.Makh</td>
+                                    <td>@od.Tongtien</td>
+                                    <td>@od.Ngaydat</td>
+                                    @if (od.Tttt == 1)
+                                    {
+                                        <td><button class="btn btn-success">Đã thanh toán</button></td>
+                                    }
+                                    else
+                                    {
+                                        <td><button class="btn btn-danger">Chưa thanh toán</button></td>
+                                    }
+                                    <td>
+                                        <form asp-controller="Admin" asp-action="OrderDetail" asp-route-id="@od.Madh" method="post">
+                                            <button class="btn btn-outline-success">
+                                                <i class="fa fa-edit"></i> Detail
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
                                  }
 
                                     

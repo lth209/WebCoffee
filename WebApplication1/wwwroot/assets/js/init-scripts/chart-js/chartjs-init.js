@@ -55,7 +55,7 @@
                             },
                             scaleLabel: {
                                 display: false,
-                                labelString: 'Month'
+                                labelString: 'Years'
                             }
                         }],
                         yAxes: [{
@@ -91,8 +91,59 @@
                 OrderChart.data.labels = years;
                 addData(OrderChart, datas, 0);
             }, 1000);
+            updateConfigAsNewObject(OrderChart);
             OrderChart.update();
         });
+    function updateConfigAsNewObject(chart) {
+        chart.options = {
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                titleFontSize: 12,
+                titleFontColor: '#000',
+                bodyFontColor: '#000',
+                backgroundColor: '#fff',
+                titleFontFamily: 'Montserrat',
+                bodyFontFamily: 'Montserrat',
+                cornerRadius: 3,
+                intersect: false,
+            },
+            legend: {
+                display: false,
+                position: 'top',
+                labels: {
+                    usePointStyle: true,
+                    fontFamily: 'Montserrat',
+                },
+
+
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    scaleLabel: {
+                        display: false,
+                        labelString: 'Years'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        };
+    }
     function addData(chart, data, datasetIndex) {
         chart.data.datasets[datasetIndex].data = data;
         chart.update();
