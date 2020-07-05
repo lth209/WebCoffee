@@ -16,6 +16,6 @@ namespace WebApplication1.Models
         public string Ghichu { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int? Matk { get; set; }
+        public int Matk { get; set; }
     }
 }

@@ -1,69 +1,45 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE HTML>
+﻿@{ Layout = null; }
 <html>
 <head>
-    <title>Form Đăng Nhập</title>
-    <script src="js/jquery.min.js"></script>
-    <!-- Custom Theme files -->
-    <link href="css/login.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- for-mobile-apps -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Classy Login form Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-    <!-- //for-mobile-apps -->
-    <!--Google Fonts-->
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/css/styleDangNhap.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/fontawesome-pro-5.12.0-web/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!--header start here-->
-    <div class="header">
-        <div class="header-main">
-            <h1>Đăng Nhập</h1>
-            <div class="header-bottom">
-                <div class="header-right w3agile">
 
-                    <div class="header-left-bottom agileinfo">
+    <div class="header--nav">
+        <div class="humberger__menu__logo">
 
-                        <form asp-action="DangNhap" method="post">
-                            <input type="text" value="Tên đăng nhập" name="name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Tên đăng nhập';}" />
-                            <input type="password" value="Mật khẩu" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mật khẩu';}" />
-                            <div class="remember">
-                                <span class="checkbox1">
-                                    <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Nhớ tài khoản</label>
-                                </span>
-                                <div class="forgot">
-                                    <h6><a href="#">Quên mật khẩu?</a></h6>
-                                </div>
-                                <div class="clear"> </div>
-                            </div>
-
-                            <input type="submit" value="Đăng nhập">
-                        </form>
-                        <div class="header-left-top">
-                            <div class="sign-up"> <h2>or</h2> </div>
-
-                        </div>
-                        <div class="header-social wthree">
-                            <a href="#" class="face"><h5>Facebook</h5></a>
-                            <a href="#" class="twitt"><h5>Twitter</h5></a>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
+            <a href="#"><img style="width:100px; height:90px " src="../img/logo.png" alt=""></a>
         </div>
     </div>
-    
-    <!--header end here-->
-    <div class="copyright">
-        <p>© Feel Coffee Login Form. All rights reserved | Design by Feel Coffee Team </p>
+    <div class="login d-flex">
+
+        <form method="POST" asp-controller="DangNhap" asp-action="DangNhap">
+            <div class="form-group">
+                <label for="Username"><i class="fas fa-user-alt"></i>&nbsp; User</label>
+                <input type="text" class="form-control" id="Username" placeholder="Tên tài khoản" name="Tentk" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="Password"><i class="fas fa-key"></i>&nbsp; Password</label>
+                <input type="password" class="form-control" id="Password" placeholder="Mật khẩu" name="Password" required>
+            </div>
+            <div class="button d-flex">
+                <button type="submit" class="btn">Đăng nhập</button>
+                <a asp-action="DangKy" asp-controller="DangKy"><button type="button" class="btn ml-5">Tạo tài khoản</button></a>
+
+
+                <a href="/taikhoan/dangky">
+            </div>
+            @if (ViewBag.error != null)
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @ViewBag.error
+                </div>}
+        </form>
     </div>
-    <!--footer end here-->
 </body>
 </html>
