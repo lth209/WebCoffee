@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
         {
             if (CheckRole())
             {
-                return View();
+                return RedirectToAction("OrderManager", "Admin");
             }
             return View("Views/Shared/UnauthorizedAccess.cshtml");
         }

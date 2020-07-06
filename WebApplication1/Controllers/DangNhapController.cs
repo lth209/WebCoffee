@@ -48,6 +48,7 @@ namespace WebApplication1.Controllers
                 {
                     if (item.Tentk == model.Tentk && item.Password == pass && item.Maquyen == 2)
                     {
+                        HttpContext.Response.Cookies.Append("user_id", item.Id.ToString());
                         HttpContext.Session.SetString("Tentk", model.Tentk);
                         return RedirectToAction("Index", "Home");
                         //return RedirectToAction("xacnhandathang", "sanpham");

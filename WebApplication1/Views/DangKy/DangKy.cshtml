@@ -6,63 +6,82 @@
 
 @{ Layout = null; }
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Đăng ký</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/styleDangNhap.css" rel="stylesheet" />
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/fontawesome-pro-5.12.0-web/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="../fonts/linearicons/style.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="../css/regis/style.css">
 </head>
-<body class="bg-light">
-    <div class="header w-100 d-flex bg-dark text-white p-4">
-        <span class="ml-2"></span>
-    </div>
-    <div class="login d-flex">
-        <form method="POST" asp-controller="DangKy" asp-action="DangKy">
-            <div class="form-row">
-                <div class="form-group col-md-6">
+
+<body>
+
+    <div class="wrapper">
+        <div class="inner">
+            <img src="../img/image-1.png" alt="" class="image-1">
+            <form class="row" method="POST" asp-action="DangKy" asp-controller="DangKy">
+                <h3>New Account?</h3>
+                <div class="form-holder col-md-6">
+                    <span class="lnr lnr-user"></span>
                     <input type="text" class="form-control pl-4" id="username" placeholder="Tên tài khoản" name="Tentk" autocomplete="off" required>
                     <i class="fas fa-user-alt icon1"></i>
                     @if (ViewBag.errUsername != null)
                     {
                         <span class="ml-2" style="color: red;font-size:14px">@ViewBag.errUsername</span>}
-
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-holder col-md-6">
+                    <input type="text" class="form-control w-100" id="HoTen" placeholder="Họ tên" name="HoTen" autocomplete="off" required>
+                </div>
+
+                <div class="form-holder col-md-6">
+                    <input type="text" class="form-control w-100" id="GioiTinh" placeholder="Giới Tính" name="GioiTinh" autocomplete="off" required>
+                </div>
+                <div class="form-holder col-md-6">
+                    <span class="lnr lnr-phone-handset"></span>
+                    <input type="text" class="form-control" id="sodt" placeholder="Số điện thoại" name="sodt" autocomplete="off" required>
+                </div>
+                <div class="form-holder col-md-6">
+                    <span class="lnr lnr-envelope"></span>
+                    <input type="email" class="form-control w-100" id="Email" placeholder="Email" name="Email" autocomplete="off" required>
+                </div>
+                <div class="form-holder col-md-6">
+                    <input type="text" class="form-control w-100" id="" placeholder="Địa chỉ" name="Diachi" autocomplete="off" required>
+                </div>
+
+                <div class="form-holder col-md-6">
+                    <input type="text" class="form-control w-100" id="Tenduong" placeholder="Tên Đường" name="Tenduong" autocomplete="off" required>
+                </div>
+                <div class="form-holder col-md-6">
+                    <span class="lnr lnr-lock"></span>
                     <input type="password" class="form-control pl-4" id="password" placeholder="Mật khẩu" name="Password" autocomplete="off" required>
-                    <i class="fas fa-key icon2"></i>
                 </div>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control w-100" id="HoTen" placeholder="Họ tên" name="HoTen" autocomplete="off" required>
-            </div>
+                <div class="form-holder col-md-6">
+                    <span class="lnr lnr-lock"></span>
+                    <input id="password2" type="password" class="form-control" name="password2" value="" required>
+                </div>
+                <button type="submit" class="btn btn-info btn-block"> Tạo tài khoản </button> <br>
+                <br>
+                <div class="d-flex justify-content-center links">
+                    Have an account?<a href="../login"> Log in</a>
+                </div>
+            </form>
+            <img src="../img/image-2.png" alt="" class="image-2">
+        </div>
 
-            <div class="form-group">
-                <input type="text" class="form-control w-100" id="GioiTinh" placeholder="Giới Tính" name="GioiTinh" autocomplete="off" required>
-            </div>
-
-            <div class="form-group">
-                <input type="email" class="form-control w-100" id="Email" placeholder="Email" name="Email" autocomplete="off" required>
-            </div>
-
-            <div class="form-group">
-                <input type="text" class="form-control w-100" id="" placeholder="Địa chỉ" name="Diachi" autocomplete="off" required>
-            </div>
-
-            <div class="form-group">
-                <input type="text" class="form-control w-100" id="Tenduong" placeholder="Tên Đường" name="Tenduong" autocomplete="off" required>
-            </div>
-
-            <div class="form-group">
-                <input type="text" class="form-control" id="sodt" placeholder="Số điện thoại" name="sodt" autocomplete="off" required>
-            </div>
-
-            <div class="button d-flex">
-                <button type="submit" class="btn">Tạo tài khoản</button>
-            </div>
-        </form>
     </div>
-</body>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>
