@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
                     Email = model.Email,
                     //Hinhanh = "fghjk",
                     //Ttdn = 0,
-                    Maquyen = 2,
+                    Maquyen = 1,
                 };
                 dbContext.Users.Add(taikhoan);
                 dbContext.SaveChanges();

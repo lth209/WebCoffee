@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class CheckOutController : Controller
     {
-        private int Userid;
+        private string Userid;
         private int Cartid;
         private Cart a;
         private Khachhang user;
@@ -49,12 +49,13 @@ namespace WebApplication1.Controllers
             }
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
-                Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
+                Userid = HttpContext.Request.Cookies["user_id"];
                 a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 cds = GetCartDetail(a.CartId);
-                user = Function.getCurrentUser(Userid);
+                user = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 ViewData["products"] = GetSanphams();
                 ViewData["cds"] = cds;
+                ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 ViewData["user"] = user;
                 Cartid = a.CartId;
                 Console.WriteLine("yo");
@@ -88,11 +89,11 @@ namespace WebApplication1.Controllers
             {
                 return RedirectToAction("UnauthorizedAccess", "Home");
             }
-            Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
             user = Function.getCurrentUser(Userid);
             DateTime ngaydat = DateTime.Now;
             String address = tenduong + ", " + diachi + ", " + country;
             int madh = AddToOrder(user.Makh, ngaydat, ghichu, address, hoten, sdt);
+            ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             sendMail(madh, hoten, country, tenduong, diachi, sdt, email, ghichu);
             ViewData["cart"] = new Cart();
             return View();        
