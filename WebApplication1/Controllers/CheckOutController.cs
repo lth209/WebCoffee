@@ -89,7 +89,7 @@ namespace WebApplication1.Controllers
             {
                 return RedirectToAction("UnauthorizedAccess", "Home");
             }
-            user = Function.getCurrentUser(Userid);
+            user = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             DateTime ngaydat = DateTime.Now;
             String address = tenduong + ", " + diachi + ", " + country;
             int madh = AddToOrder(user.Makh, ngaydat, ghichu, address, hoten, sdt);

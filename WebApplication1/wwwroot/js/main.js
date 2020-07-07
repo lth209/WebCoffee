@@ -7,6 +7,7 @@
     /*Thêm vào giỏ hàng*/
         $(".fa-shopping-cart").on("click", function () {
             var recordAddToCart = $(this).attr("data-id");
+
             if (recordAddToCart != '') {
                 // Perform the ajax post
                 $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":"1" },
@@ -267,6 +268,7 @@
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
+        //inc button tăngsl
         if ($button.hasClass('inc')) {
             var newVal = parseFloat(oldValue) + 1;
         } else {

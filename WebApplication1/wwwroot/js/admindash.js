@@ -1,8 +1,14 @@
 ﻿
 'use strict';
 
+
 (function ($) {
 
+    $(".btn-edit-product").on("click", function () {
+
+        var recordAddToCart = $(this).attr("data-id");
+        $(recordAddToCart).modal();
+    });
     /*Thêm vào giỏ hàng*/
     $(".btn-add-od").on("click", function () {
         $("#OrderDetailModal").modal();

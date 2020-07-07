@@ -136,12 +136,31 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("OrderDetail", "Admin", new { id = id });
             }
         }
-        /*---------------Mc lam` :>----------------*/
+
         public IActionResult ProductManager()
         {
+            if (!CheckRole())
+            {
+                return View("Views/Shared/UnauthorizedAccess.cshtml");
+            }
+            ViewData["product"] = GetSanphams();
+
             return View(); //ProductManager.cshtml
         }
 
+        public IActionResult EditProduct(Sanpham model)
+        {
+            ViewData["product"] = GetSanphams();
+            using (Context context = new Context())
+            {
+                var sp = context.Sanpham.Where(p => p.Masp == model.Masp).Single();
+                sp.Tensp = model.Tensp;
+                sp.Mota = model.Mota;
+                sp.Gia = model.Gia;
+                context.SaveChanges();
+                return RedirectToAction("ProductManager", "Admin");
+            }
+        }
         public IActionResult CustomerManager()
         {
             return View(); //CustomerManager.cshtml
@@ -151,7 +170,7 @@ namespace WebApplication1.Controllers
         {
             return View(); //AccountManager.cshtml
         }
-        /*--------------------------------------------*/
+
 
         public List<Donhang> GetOrdersFromDb()
         {

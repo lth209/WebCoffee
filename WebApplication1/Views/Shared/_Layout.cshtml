@@ -58,26 +58,24 @@
                     <li><a href="#">English</a></li>
                 </ul>
             </div>
-            <div class="header__top__right__auth">
-                <div class="dropdown">
-                    @if (kh != null)
-                    {
-                        <a class="dropdown-toggle" data-toggle="dropdown"><img style="float: right;margin-top: 4px;width: 32px;" class="user-avatar rounded-circle" src="../img/admin.png" alt="User Avatar"></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="./shop-details.html">Thông tin cá nhân</a>
-                            <a class="dropdown-item" href="./shoping-cart.html">Thông tin đơn hàng</a>
-                            @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
-                            {
-                                <a class="dropdown-item" href="./shoping-cart.html">Admin dashboard</a>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
-                    }
-                </div>
-
+            <div class="header__top__right__language">
+                @if (kh != null)
+                {
+                    <img src="../img/admin.png" style="width:50px; height:50px" alt="">
+                    <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li><a class="dropdown-item" href="./shop-details.html">cá nhân</a></li>
+                        <li><a class="dropdown-item" href="./shoping-cart.html">đơn hàng</a></li>
+                        @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
+                        {
+                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin</a></li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
+                }
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -142,25 +140,24 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth ">
-                                <div class="dropdown">
-                                    @if (kh != null)
-                                    {
-                                        <a class="dropdown-toggle" data-toggle="dropdown"><img style="float: right;margin-top: 4px;width: 32px;" class="user-avatar rounded-circle" src="../img/admin.png" alt="User Avatar"></a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="./shop-details.html">Thông tin cá nhân</a>
-                                            <a class="dropdown-item" href="./shoping-cart.html">Thông tin đơn hàng</a>
-                                            @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
-                                            {
-                                                <a class="dropdown-item" href="./shoping-cart.html">Admin dashboard</a>
-                                            }
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
-                                    }
-                                </div>
+                            <div class="header__top__right__language">
+                                @if (kh != null)
+                                {
+                                    <img src="../img/admin.png" style="width:50px; height:50px" alt="">
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul>
+                                        <li><a class="dropdown-item" href="./shop-details.html">cá nhân</a></li>
+                                        <li><a class="dropdown-item" href="./shoping-cart.html">đơn hàng</a></li>
+                                        @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin</a></li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
+                                }
                             </div>
                         </div>
                     </div>
