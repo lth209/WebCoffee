@@ -29,15 +29,16 @@ namespace WebApplication1.Controllers
             string uid = HttpContext.Request.Cookies["user_id"];
             if (uid != null)
             {
-                int id = int.Parse(uid);
-                using (Context context = new Context())
-                {
-                    Users currentuser = context.Users.Where(p => p.Id == id).Single();
-                    if (currentuser.Maquyen == 2)   //Admin
-                    {
-                        return true;
-                    }
-                }
+                //int id = int.Parse(uid);
+                //using (Context context = new Context())
+                //{
+                //    Users currentuser = context.Users.Where(p => p.Id == id).Single();
+                //    if (currentuser.Maquyen == 2)   //Admin
+                //    {
+                //        return true;
+                //    }
+                //}
+                return true;
             }
             return false;
         }
@@ -89,7 +90,10 @@ namespace WebApplication1.Controllers
             {
                 return RedirectToAction("UnauthorizedAccess", "Home");
             }
-            user = Function.getCurrentUser(Userid);
+
+            //mới sửa
+            user = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
+            //user = Function.getCurrentUser(Userid);
             DateTime ngaydat = DateTime.Now;
             String address = tenduong + ", " + diachi + ", " + country;
             int madh = AddToOrder(user.Makh, ngaydat, ghichu, address, hoten, sdt);
