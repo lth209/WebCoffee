@@ -72,10 +72,15 @@
                     <span class="lnr lnr-lock"></span>
                     <input id="password2" type="password" class="form-control" name="password2" value="" required>
                 </div>
+                @if (ViewBag.thongbao != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.thongbao</div>
+                }
+
                 <button type="submit" class="btn btn-info btn-block"> Tạo tài khoản </button> <br>
                 <br>
                 <div class="d-flex justify-content-center links">
-                    Have an account?<a href="../login"> Log in</a>
+                    Have an account?<a href="../DangNhap"> Đăng nhập</a>
                 </div>
             </form>
             <img src="../img/image-2.png" alt="" class="image-2">

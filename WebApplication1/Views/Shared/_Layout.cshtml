@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Cart cart = ViewData["cart"] as Cart;
     Khachhang kh = ViewData["kh"] as Khachhang;
 }
@@ -11,7 +11,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Feel Coffee</title>
+    <title>The Feel Coffee</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -38,7 +38,8 @@
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">s
+        <div class="humberger__menu__logo">
+            s
             <a href="#"><img style="width:100px; height=100px " src="../img/logo.png" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
@@ -49,15 +50,15 @@
             <div class="header__cart__price">item: <span>@cart.Total</span></div>
         </div>
         <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="../img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
+            @*<div class="header__top__right__language">
+                    <img src="../img/language.png" alt="">
+                    <div>English</div>
+                    <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li><a href="#">Spanis</a></li>
+                        <li><a href="#">English</a></li>
+                    </ul>
+                </div>*@
             <div class="header__top__right__auth">
                 <div class="dropdown">
                     @if (kh != null)
@@ -74,7 +75,7 @@
                     }
                     else
                     {
-                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
+                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Đăng nhập</a>
                     }
                 </div>
 
@@ -82,19 +83,19 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                <li><a href="./shop-grid.html">Cửa hàng</a></li>
                 <li>
-                    <a href="#">Pages</a>
+                    <a href="#">Trang chủ</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
+                        <li><a href="./shop-details.html">Sản phẩm</a></li>
+                        <li><a href="./shoping-cart.html">Giỏ hàng</a></li>
+                        <li><a href="./checkout.html">Thanh toán</a></li>
+                        <li><a href="./blog-details.html">Bài viết hay</a></li>
                     </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./blog.html">Bài viết</a></li>
+                <li><a href="./contact.html">Liên hệ</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -106,8 +107,9 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
+               
+                <li><i class="fa fa-envelope"></i>feelcoffee@gmail.com</li>
+                <li>Miễn phí giao hàng, dù chỉ là 1 ly!</li>
             </ul>
         </div>
     </div>
@@ -120,28 +122,28 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                                <li><i class="fa fa-envelope"></i>feelcoffee@gmail.com</li>
+                                <li>Miễn phí giao hàng, dù chỉ là 1 ly!</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                <a href="https://www.facebook.com/Feel-Coffee-107749674341307/?modal=admin_todo_tour" target="_blank"><i class="fa fa-facebook"></i></a>
+                                <a href="https://twitter.com/explore" target="_blank"><i class="fa fa-twitter"></i></a>
+                                <a href="https://fr.linkedin.com/" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-p"></i></a>
                             </div>
-                            <div class="header__top__right__language">
-                                <img src="../img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
+                            @*<div class="header__top__right__language">
+                                    <img src="../img/language.png" alt="">
+                                    <div>English</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul>
+                                        <li><a href="#">Spanis</a></li>
+                                        <li><a href="#">English</a></li>
+                                    </ul>
+                                </div>*@
                             <div class="header__top__right__auth ">
                                 <div class="dropdown">
                                     @if (kh != null)
@@ -158,7 +160,7 @@
                                     }
                                     else
                                     {
-                                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
+                                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Đăng nhập</a>
                                     }
                                 </div>
                             </div>
@@ -177,19 +179,19 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a>Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li class="active"><a>Trang chủ</a></li>
+                            <li><a href="./shop-grid.html">Cửa hàng</a></li>
                             <li>
-                                <a href="#">Pages</a>
+                                <a href="#">Trang chủ</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="./shop-details.html">Sản phẩm</a></li>
+                                    <li><a href="./shoping-cart.html">Giỏ hàng</a></li>
+                                    <li><a href="./checkout.html">Thanh toán</a></li>
+                                    <li><a href="./blog-details.html">Bài viết hay</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a href="./blog.html">Bài viết</a></li>
+                            <li><a href="./contact.html">Liên hệ</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -224,9 +226,9 @@
                             <a href="./index.html"><img src="img/logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Địa chỉ: KTX khu B, khu phố 6, phường Linh Trung, quận Thủ Đức, TP.HCM</li>
+                            <li>Số điện thoại: 0345770122</li>
+                            <li>Email: feelcoffee@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -240,6 +242,7 @@
                             <li><a href="#">Delivery infomation</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Our Sitemap</a></li>
+
                         </ul>
                         <ul>
                             <li><a href="#">Who We Are</a></li>
@@ -260,10 +263,10 @@
                             <button type="submit" class="site-btn">Subscribe</button>
                         </form>
                         <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="https://www.facebook.com/Feel-Coffee-107749674341307/?modal=admin_todo_tour" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="https://twitter.com/explore" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="https://fr.linkedin.com/" target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://www.pinterest.com/" target="_blank"><i class="fa fa-pinterest-p"></i></a>
                         </div>
                     </div>
                 </div>
@@ -275,7 +278,7 @@
                             <p>
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;
-                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <script>document.write(new Date().getFullYear());</script> The Feel Coffee. All rights reserved.
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             </p>
                         </div>
