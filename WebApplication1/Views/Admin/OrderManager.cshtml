@@ -57,13 +57,20 @@
                                     <td>@od.Makh</td>
                                     <td>@od.Tongtien</td>
                                     <td>@od.Ngaydat</td>
-                                    @if (od.Tttt == 1)
+                                    @switch (od.Tttt)
                                     {
-                                        <td><button class="btn btn-success">Đã thanh toán</button></td>
-                                    }
-                                    else
-                                    {
-                                        <td><button class="btn btn-danger">Chưa thanh toán</button></td>
+                                        case 1:
+                                            <td><button class="btn btn-success">Đã thanh toán</button></td>
+                                            break;
+                                        case 2:
+                                            <td><button class="btn btn-primary">Đang chuẩn bị</button></td>
+                                            break;
+                                        case 3:
+                                            <td><button class="btn btn-warning">Đang giao hàng</button></td>
+                                            break;
+                                        default:
+                                            <td><button class="btn btn-danger">Đang xử lý</button></td>
+                                            break;
                                     }
                                     <td>
                                         <form asp-controller="Admin" asp-action="OrderDetail" asp-route-id="@od.Madh" method="post">

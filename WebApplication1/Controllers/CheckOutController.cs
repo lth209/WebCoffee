@@ -29,7 +29,8 @@ namespace WebApplication1.Controllers
             string uid = HttpContext.Request.Cookies["user_id"];
             if (uid != null)
             {
-                int id = int.Parse(uid);
+                return true;
+                /*int id = int.Parse(uid);
                 using (Context context = new Context())
                 {
                     Users currentuser = context.Users.Where(p => p.Id == id).Single();
@@ -37,7 +38,7 @@ namespace WebApplication1.Controllers
                     {
                         return true;
                     }
-                }
+                }*/
             }
             return false;
         }
@@ -93,6 +94,7 @@ namespace WebApplication1.Controllers
             DateTime ngaydat = DateTime.Now;
             String address = tenduong + ", " + diachi + ", " + country;
             int madh = AddToOrder(user.Makh, ngaydat, ghichu, address, hoten, sdt);
+            ViewData["madh"] = madh;
             ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             sendMail(madh, hoten, country, tenduong, diachi, sdt, email, ghichu);
             ViewData["cart"] = new Cart();

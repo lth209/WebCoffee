@@ -3,11 +3,38 @@
 
 
 (function ($) {
+    $(".btn-od-detail").on("click", function () {
 
+        var recordAddToCart = $(this).attr("data-id");
+        $(recordAddToCart).modal();
+    });
     $(".btn-edit-product").on("click", function () {
 
         var recordAddToCart = $(this).attr("data-id");
         $(recordAddToCart).modal();
+    });
+    $(".btn-edit-acc").on("click", function () {
+
+        var recordAddToCart = $(this).attr("data-id");
+        $(recordAddToCart).modal();
+    });
+    $(".btn-add-product").on("click", function () {
+        $("#AddProduct").modal();
+    });
+    $(".btn-remove-product").on("click", function () {
+        var recordItem = $(this).attr("data-id");
+        $(this).parent().parent().remove();
+        if (recordItem != '') {
+            $.post("../Admin/RemoveProduct", { "masp": recordItem },
+                function (data) {
+                    if (data == "success") {
+
+                    }
+                    else {
+                        alert("không thành công");
+                    }
+                });
+        }
     });
     /*Thêm vào giỏ hàng*/
     $(".btn-add-od").on("click", function () {
@@ -34,7 +61,8 @@
                 });
         }
     });
-
+/*Datatable init */
+    
     /*-------------------
        Quantity change
    --------------------- */

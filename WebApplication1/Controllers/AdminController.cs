@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Others;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace WebApplication1.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public AdminController(IWebHostEnvironment hostEnvironment)
+        {
+            webHostEnvironment = hostEnvironment;
+        }
         public Boolean CheckRole()
         {
             string uid = HttpContext.Request.Cookies["user_id"];
@@ -137,6 +145,46 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public async Task<IActionResult> AddProduct(List<IFormFile> files, Sanpham sp)
+        {
+            long size = files.Sum(f => f.Length);
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath,"img");
+                    uploadsFolder = Path.Combine(uploadsFolder, "product");
+                    string filePath = Path.Combine(uploadsFolder, formFile.FileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(fileStream);
+                    }
+                    sp.Hinhanh = formFile.FileName;
+                    AddNewProduct(sp);
+                }
+            }
+
+            // Process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return RedirectToAction("ProductManager", "Admin");
+        }
+        [HttpPost]
+        public IActionResult RemoveProduct(int masp)
+        {
+            using (Context context = new Context())
+            {
+                var sp = context.Sanpham.Where(p => p.Masp == masp).Single();
+                context.Sanpham.Remove(sp);
+                int row = context.SaveChanges();
+                if (row > 0)
+                {
+                    return Json("success");
+                }
+                return Json("fail");
+            }
+        }
         public IActionResult ProductManager()
         {
             if (!CheckRole())
@@ -144,10 +192,20 @@ namespace WebApplication1.Controllers
                 return View("Views/Shared/UnauthorizedAccess.cshtml");
             }
             ViewData["product"] = GetSanphams();
-
+            ViewData["loaisp"] = GetLoaiSp();
             return View(); //ProductManager.cshtml
         }
 
+        public IActionResult EditCustomer(Users user)
+        {
+            using(Context context = new Context())
+            {
+                var u = context.Users.Where(p => p.Id == user.Id).Single();
+                u.Maquyen = user.Maquyen;
+                context.SaveChanges();
+                return RedirectToAction("CustomerManager", "Admin");
+            }
+        }
         public IActionResult EditProduct(Sanpham model)
         {
             ViewData["product"] = GetSanphams();
@@ -163,14 +221,20 @@ namespace WebApplication1.Controllers
         }
         public IActionResult CustomerManager()
         {
+            ViewData["khs"] = GetCustomers();
+            ViewData["accs"] = GetAccounts();
             return View(); //CustomerManager.cshtml
         }
 
-        public IActionResult AccountManager()
+        public void AddNewProduct(Sanpham sp)
         {
-            return View(); //AccountManager.cshtml
+            using (Context context = new Context())
+            {
+                sp.CreatedAt = DateTime.Now;
+                context.Sanpham.Add(sp);
+                context.SaveChanges();
+            }
         }
-
 
         public List<Donhang> GetOrdersFromDb()
         {
@@ -180,7 +244,14 @@ namespace WebApplication1.Controllers
                 return orders;
             }
         }
-
+        public List<Loaisanpham> GetLoaiSp()
+        {
+            using(Context context = new Context())
+            {
+                var a = context.Loaisanpham.ToList();
+                return a;
+            }
+        }
         public List<Sanpham> GetSanphams()
         {
             using (Context context = new Context())
@@ -218,6 +289,23 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public List<Users> GetAccounts()
+        {
+            using (Context context = new Context())
+            {
+                var cus = context.Users.ToList();
+                return cus;
+            }
+        }
+
+        public List<Khachhang> GetCustomers()
+        {
+            using (Context context = new Context())
+            {
+                var cus = context.Khachhang.ToList();
+                return cus;
+            }
+        }
         public Khachhang GetCustomer(int id)
         {
             using (Context context = new Context())

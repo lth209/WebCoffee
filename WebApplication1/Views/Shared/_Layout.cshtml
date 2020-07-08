@@ -64,12 +64,13 @@
                     <img src="../img/admin.png" style="width:50px; height:50px" alt="">
                     <span class="arrow_carrot-down"></span>
                     <ul>
-                        <li><a class="dropdown-item" href="./shop-details.html">cá nhân</a></li>
-                        <li><a class="dropdown-item" href="./shoping-cart.html">đơn hàng</a></li>
+                        <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="Index">Cá nhân</a></li>
+                        <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="DonHang">Đơn hàng</a></li>
                         @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
                         {
                             <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin</a></li>
                         }
+                        <li><a class="dropdown-item" asp-action="LogOut" asp-controller="Home">Đăng xuất</a></li>
                     </ul>
                 }
                 else
@@ -146,12 +147,13 @@
                                     <img src="../img/admin.png" style="width:50px; height:50px" alt="">
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
-                                        <li><a class="dropdown-item" href="./shop-details.html">cá nhân</a></li>
-                                        <li><a class="dropdown-item" href="./shoping-cart.html">đơn hàng</a></li>
+                                        <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="Index">Cá nhân</a></li>
+                                        <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="DonHang">Đơn hàng</a></li>
                                         @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
                                         {
                                             <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin</a></li>
                                         }
+                                        <li><a class="dropdown-item" asp-action="LogOut" asp-controller="Home">Đăng xuất</a></li>
                                     </ul>
                                 }
                                 else

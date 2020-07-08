@@ -45,6 +45,12 @@ namespace WebApplication1.Controllers
         {
             return View("Views/Shared/UnauthorizedAccess.cshtml");
         }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Response.Cookies.Delete("user_id");
+            return RedirectToAction("Index");
+        }
         public void loadNameProduct()
         {
 

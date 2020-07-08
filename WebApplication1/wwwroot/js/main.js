@@ -35,7 +35,6 @@
     /*thêm xóa giỏ hàng*/
     $(".shoping__cart__item__close").on("click", function () {
         var recordItem = $(this).attr("data-id");
-        alert(recordItem);
         $(this).parent().remove();
         if (recordItem != '') {
             $.post("Shoppingcart/RemoveItem", { "masp": recordItem },
