@@ -29,15 +29,16 @@ namespace WebApplication1.Controllers
             string uid = HttpContext.Request.Cookies["user_id"];
             if (uid != null)
             {
-                int id = int.Parse(uid);
-                using (Context context = new Context())
-                {
-                    Users currentuser = context.Users.Where(p => p.Id == id).Single();
-                    if (currentuser.Maquyen == 2)   //Admin
-                    {
-                        return true;
-                    }
-                }
+                //int id = int.Parse(uid);
+                //using (Context context = new Context())
+                //{
+                //    Users currentuser = context.Users.Where(p => p.Id == id).Single();
+                //    if (currentuser.Maquyen == 2)   //Admin
+                //    {
+                //        return true;
+                //    }
+                //}
+                return true;
             }
             return false;
         }

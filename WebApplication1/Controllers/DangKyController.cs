@@ -76,6 +76,8 @@ namespace WebApplication1.Controllers
                 khachhang.Matk = taikhoan.Id;
                 dbContext.Khachhang.Add(khachhang);
                 dbContext.SaveChanges();
+
+                ViewBag.thongbao = "Đăng ký thành công";
             }
             else
             {
