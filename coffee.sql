@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 10, 2020 lúc 05:24 AM
+-- Thời gian đã tạo: Th7 10, 2020 lúc 07:06 AM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.7
 
@@ -56,7 +56,7 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`cartid`, `matk`, `total`, `amount`) VALUES
 (17, 22, 162000, 4),
-(30, 29, 68000, 2);
+(30, 29, 224000, 6);
 
 -- --------------------------------------------------------
 
@@ -78,6 +78,7 @@ INSERT INTO `cartdetail` (`cartid`, `masp`, `quantity`) VALUES
 (17, 1, 2),
 (17, 4, 1),
 (17, 17, 1),
+(30, 1, 4),
 (30, 4, 1),
 (30, 40, 1);
 
@@ -306,11 +307,10 @@ INSERT INTO `donhang` (`madh`, `makh`, `ngaydat`, `tongtien`, `httt`, `ghichu`, 
 (58, 21, '2020-06-30', 94000, 'ATM', NULL, '2020-07-06 12:32:50', '2020-06-30 10:28:20', 1, '23/54 Lê Trọng Tấn', '0902216524', 'Nguyễn Lan Anh', 'Nguyễn Văn A'),
 (59, 31, '2020-07-06', 414000, 'ATM', NULL, '2020-07-06 20:44:11', '2020-07-06 10:30:20', 1, '123 Nguyễn Thị Minh Khai, TPHCM, VietNam', '0909090909', 'Nguyễn Lan Thảo', 'Nguyễn Văn A'),
 (60, 31, '2020-07-08', 74000, 'ATM', NULL, '2020-07-08 16:57:31', '2020-07-08 16:47:02', 2, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
-(61, 31, '2020-02-09', 123000, 'ATM', NULL, '2020-07-09 12:20:50', '2020-07-08 17:01:26', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
+(61, 31, '2020-02-09', 123000, 'ATM', NULL, '2020-07-10 03:35:49', '2020-07-08 17:01:26', 3, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn B'),
 (62, 31, '2020-01-09', 103000, 'ATM', NULL, '2020-07-09 12:20:44', '2020-07-08 17:17:05', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
 (63, 31, '2020-07-09', 281000, 'ATM', NULL, '2020-05-09 11:34:55', '2020-07-09 11:34:55', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
-(64, 31, '2020-04-09', 110000, 'ATM', NULL, '2020-07-09 12:20:30', '2020-07-09 11:51:44', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
-(65, 31, '2020-07-09', 29000, 'ATM', NULL, '2020-07-09 12:50:28', '2020-07-09 12:50:28', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A');
+(64, 31, '2020-04-09', 110000, 'ATM', NULL, '2020-07-10 04:34:14', '2020-07-09 11:51:44', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A');
 
 -- --------------------------------------------------------
 
@@ -513,6 +513,7 @@ CREATE TABLE `sanpham` (
   `hinhanh` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dvt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `moi` tinyint(4) DEFAULT 0,
+  `tt` int(11) NOT NULL DEFAULT 1,
   `SellQuantity` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp()
@@ -522,51 +523,51 @@ CREATE TABLE `sanpham` (
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`masp`, `tensp`, `maloaisp`, `mota`, `gia`, `giakm`, `hinhanh`, `dvt`, `moi`, `SellQuantity`, `created_at`, `updated_at`) VALUES
-(1, 'AMERICANO', 1, 'Americano được pha chế bằng cách thêm nước vào một hoặc hai shot Espresso để pha loãng độ đặc của cà phê, từ đó mang lại hương vị nhẹ nhàng, không gắt mạnh và vẫn thơm nồng nàn.', 39000, 37000, 'americano_39k.jpg', 'ly', 0, 15, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(2, 'BẠC SỈU', 1, 'Theo chân những người gốc Hoa đến định cư tại Sài Gòn, Bạc sỉu là cách gọi tắt của \"Bạc tẩy sỉu phé\" trong tiếng Quảng Đông, chính là: Ly sữa trắng kèm một chút cà phê.', 29000, 0, 'bacsiu_29k.jpg', 'ly', 0, 10, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(3, 'CÀ PHÊ ĐEN', 1, 'Một tách cà phê đen thơm ngào ngạt, phảng phất mùi cacao là món quà tự thưởng tuyệt vời nhất cho những ai mê đắm tinh chất nguyên bản nhất của cà phê. Một tách cà phê trầm lắng, thi vị giữa dòng đời vồn vã.', 29000, 0, 'cafeden_29k.jpg', 'ly', 0, 20, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(4, 'CÀ PHÊ SỮA', 1, 'Cà phê phin kết hợp cũng sữa đặc là một sáng tạo đầy tự hào của người Việt, được xem món uống thương hiệu của Việt Nam.', 29000, 0, 'cafesua_29k.jpg', 'ly', 0, 18, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(5, 'CAPPUCINNO', 1, 'Cappucino được gọi vui là thức uống \"một-phần-ba\" - 1/3 Espresso, 1/3 Sữa nóng, 1/3 Foam.', 45000, 0, 'cappucinno_45k.jpg', 'ly', 0, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(6, 'CARAMEL MACCHIATO', 1, 'Vị thơm béo của bọt sữa và sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng, và vị ngọt đậm của sốt caramel.', 55000, 0, 'caramelmacchiato_55k.jpg', 'ly', 0, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(7, 'COLD BREW CAM SẢ', 1, '', 45000, 42000, 'cold_brew_cam_sa_45k.jpg', 'ly', 1, 16, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(8, 'COLD BREW PHÚC BỒN TỬ', 1, '', 50000, 0, 'coldbrewphucbontu_50k.png', 'ly', 0, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(9, 'COLD BREW SỮA TƯƠI', 1, '', 50000, 0, 'coldbrewsuatuoi_50k.jpg', 'ly', 0, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
-(11, 'COLD BREW SỮA TƯƠI MACCHIATO', 1, '', 50000, 45000, 'coldbresuatuoimacchiato_50k.jpg', 'ly', 0, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(12, 'COLD BREW TRUYỀN THỐNG', 1, '', 45000, 0, 'coldbrewtruyenthong_45k.jpg', 'ly', 0, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(13, 'ESPRESSO', 1, 'Một cốc Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng, phối trộn với tỉ lệ cân đối hạt Robusta, cho ra vị ngọt caramel, vị chua dịu và sánh đặc. Để đạt được sự kết hợp này, chúng tôi xay tươi hạt cà phê cho mỗi lần pha.', 35000, 0, 'espresso_35k.jpg', 'ly', 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(14, 'LATTE', 1, 'Khi chuẩn bị Latte, cà phê Espresso và sữa nóng được trộn lẫn vào nhau, bên trên vẫn là lớp foam nhưng mỏng và nhẹ hơn Cappucinno.', 45000, 0, 'latte_45k.jpg', 'ly', 0, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(15, 'MOCHA', 1, 'Cà phê Mocha được ví von đơn giản là Sốt Sô cô la được pha cùng một tách Espresso.', 49000, 0, 'mocha_49k.jpg', 'ly', 1, 9, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(16, 'SÔ-CÔ-LA ĐÁ', 1, 'Cacao nguyên chất hoà cùng sữa tươi béo ngậy. Vị ngọt tự nhiên, không gắt cổ, để lại một chút đắng nhẹ, cay cay trên đầu lưỡi.', 55000, 0, 'iced_chocolate_55k.jpg', 'ly', 0, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(17, 'TRÀ CHERRY MACCHIATO', 2, '', 55000, 0, 'tracherrymacchiato_55k.jpg', 'ly', 0, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
-(18, 'TRÀ ĐÀO CAM SẢ', 2, 'Vị thanh ngọt của đào Hy Lạp, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này. Sản phẩm hiện có 2 phiên bản Nóng và Lạnh phù hợp cho mọi thời gian trong năm.', 45000, 0, 'tradaocamsa_45k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(19, 'TRÀ ĐEN MACCHIATO', 2, 'Trà đen được ủ mới mỗi ngày, giữ nguyên được vị chát mạnh mẽ đặc trưng của lá trà, phủ bên trên là lớp Macchiato \"homemade\" bồng bềnh quyến rũ vị phô mai mặn mặn mà béo béo.', 42000, 0, 'tradenmacchiato_42k.jpg', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(20, 'TRÀ GẠO RANG MACCHIATO', 2, 'Trà gạo rang, hay còn gọi là Genmaicha, hay Trà xanh gạo lứt có nguồn gốc từ Nhật Bản. Tại The Coffee House, chúng tôi nhấn nhá cho Genmaicha thêm lớp Macchiato để tăng thêm mùi vị cũng như trải nghiệm của chính bạn.', 48000, 0, 'tragaorangmacchiato_48k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(21, 'TRÀ MATCHA LATTE', 2, 'Với màu xanh mát mắt của bột trà Matcha, vị ngọt nhẹ nhàng, pha trộn cùng sữa tươi và lớp foam mềm mịn, Matcha Latte là thức uống yêu thích của tất cả mọi người khi ghé The Coffee House.', 59000, 53000, 'tramatchalatte_59k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(22, 'TRÀ MATCHA MACCHIATO', 2, 'Bột trà xanh Matcha thơm lừng hảo hạng cùng lớp Macchiato béo ngậy là một sự kết hợp tuyệt vời.', 45000, 0, 'tramatchamachiato_45k.jpg', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(23, 'TRÀ OOLONG SEN AN NHIÊN', 2, '', 45000, 0, 'traoolongsenannhien_45k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(24, 'TRÀ OOLONG VẢI NHƯ Ý', 2, '', 45000, 40000, 'traoolongvainhuy_45k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(25, 'TRÀ PHÚC BỒN TỬ', 2, '', 49000, 0, 'traphucbontu_49k.png', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(26, 'TRÀ XOÀI MACCHIATO', 2, '', 55000, 0, 'traxoaimachiato_55k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(27, 'TRÀ XOÀI MACCHIATO 2', 2, '', 55000, 45000, 'traxoaimachiato2_55k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(28, 'CHANH SẢ ĐÁ XAY', 3, '', 49000, 0, 'chanhsadaxay_49k.jpg', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(29, 'CHOCOLATE ĐÁ XAY', 3, 'Vị đắng của cà phê kết hợp cùng vị cacao ngọt ngàocủa sô-cô-la, vị sữa tươi ngọt béo, đem đến trải nghiệm vị giác cực kỳ thú vị.', 59000, 0, 'chocolate_daxay_59k.jpg', 'hộp', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(30, 'COOKIES ĐÁ XAY', 3, 'Những mẩu bánh cookies giòn rụm kết hợp ăn ý với sữa tươi và kem tươi béo ngọt, đem đến cảm giác lạ miệng gây thích thú. Một món uống phá cách dễ thương.', 59000, 0, 'cookies_ice_blended_59k.jpg', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(31, 'ĐÀO VIỆT QUẤT ĐÁ XAY', 3, '', 59000, 0, 'daovietquatdaxay_59k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(32, 'MATCHA ĐÁ XAY', 3, 'Matcha thanh, nhẫn, và đắng nhẹ được nhân đôi sảng khoái khi uống lạnh. Nhấn nhá thêm những nét bùi béo của kem và sữa. Gây thương nhớ vô cùng!', 59000, 0, 'matchadaxay_59k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(33, 'ỔI HỒNG VIỆT QUẤT ĐÁ XAY', 3, '', 59000, 50000, 'oihongvietquatdaxay_59k.jpg', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(34, 'PHÚC BỒN TỬ CAM ĐÁ XAY', 3, '', 59000, 0, 'phucbontucamdaxay_59k.png', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(35, 'SINH TỐ CAM XOÀI', 4, 'Vị mứt cam xoài hòa trộn độc đáo với sữa chua, cho cảm giác chua ngọt rất sướng. Điểm nhấn là những mẩu bánh cookie giòn tan giúp sự thưởng thức thêm thú vị.', 59000, 43000, 'sinhtocamxoai_59k.jpg', 'ly', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(36, 'SINH TỐ VIỆT QUẤT', 4, 'Mứt Việt Quất chua thanh, ngòn ngọt, phối hợp nhịp nhàng với dòng sữa chua bổ dưỡng. Là món sinh tố thơm ngon mà cả đầu lưỡi và làn da đều thích.', 59000, 0, 'sinhtovietquat_59k.jpg', 'ly', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(37, 'BÁNH BÔNG LAN TRỨNG MUỐI', 5, '', 29000, 0, 'banhbonglantrungmuoi_29k.jpg', 'cái', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(38, 'BÁNH CHOCOLATE', 5, '', 29000, 0, 'banhchocolate_29k.jpg', 'cái', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(39, 'BÁNH CROISSANT BƠ TỎI', 5, '', 29000, 0, 'banhcroissantbotoi_29k.jpg', 'cái', 0, 15, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(40, 'BÁNH GẤU CHOCOLATE', 5, '', 39000, 34000, 'banhgauchocolate_39k.jpg', 'cái', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(41, 'BÁNH MATCHA', 5, '', 29000, 0, 'banhmatcha_29k.jpg', 'cái', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(42, 'BÁNH MÌ CHÀ BÔNG PHÔ MAI', 5, '', 32000, 26000, 'banhmichabongphomai_32k.jpg', 'cái', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(43, 'BÁNH PASSION CHEESE', 5, '', 29000, 0, 'banhpassioncheese_29k.jpg', 'cái', 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(44, 'BÁNH TIRAMISU', 5, '', 29000, 22000, 'banhtiramisu_29k.jpg', 'cái', 0, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
-(66, 'Trà sữa trân châu đường đen', 1, 'Trà sữa chưa hết “hot”, mùa hè này lại rộ lên “phiên bản” mới với những nguyên liệu không hề mới mẻ - sữa tươi trân châu đường đen song lại rất đắt khách ở TP.HCM.', 26000, 24000, 'tra-sua-tran-chau-duong-den_36k.jpg', 'Ly', 0, 0, '2019-11-30 14:01:37', '2019-11-30 14:01:37');
+INSERT INTO `sanpham` (`masp`, `tensp`, `maloaisp`, `mota`, `gia`, `giakm`, `hinhanh`, `dvt`, `moi`, `tt`, `SellQuantity`, `created_at`, `updated_at`) VALUES
+(1, 'AMERICANO', 1, 'Americano được pha chế bằng cách thêm nước vào một hoặc hai shot Espresso để pha loãng độ đặc của cà phê, từ đó mang lại hương vị nhẹ nhàng, không gắt mạnh và vẫn thơm nồng nàn.', 39000, 37000, 'americano_39k.jpg', 'ly', 0, 0, 15, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(2, 'BẠC SỈU', 1, 'Theo chân những người gốc Hoa đến định cư tại Sài Gòn, Bạc sỉu là cách gọi tắt của \"Bạc tẩy sỉu phé\" trong tiếng Quảng Đông, chính là: Ly sữa trắng kèm một chút cà phê.', 29000, 0, 'bacsiu_29k.jpg', 'ly', 0, 1, 10, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(3, 'CÀ PHÊ ĐEN', 1, 'Một tách cà phê đen thơm ngào ngạt, phảng phất mùi cacao là món quà tự thưởng tuyệt vời nhất cho những ai mê đắm tinh chất nguyên bản nhất của cà phê. Một tách cà phê trầm lắng, thi vị giữa dòng đời vồn vã.', 29000, 0, 'cafeden_29k.jpg', 'ly', 0, 1, 20, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(4, 'CÀ PHÊ SỮA', 1, 'Cà phê phin kết hợp cũng sữa đặc là một sáng tạo đầy tự hào của người Việt, được xem món uống thương hiệu của Việt Nam.', 29000, 0, 'cafesua_29k.jpg', 'ly', 0, 1, 18, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(5, 'CAPPUCINNO', 1, 'Cappucino được gọi vui là thức uống \"một-phần-ba\" - 1/3 Espresso, 1/3 Sữa nóng, 1/3 Foam.', 45000, 0, 'cappucinno_45k.jpg', 'ly', 0, 1, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(6, 'CARAMEL MACCHIATO', 1, 'Vị thơm béo của bọt sữa và sữa tươi, vị đắng thanh thoát của cà phê Espresso hảo hạng, và vị ngọt đậm của sốt caramel.', 55000, 0, 'caramelmacchiato_55k.jpg', 'ly', 0, 1, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(7, 'COLD BREW CAM SẢ', 1, '', 45000, 42000, 'cold_brew_cam_sa_45k.jpg', 'ly', 1, 1, 16, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(8, 'COLD BREW PHÚC BỒN TỬ', 1, '', 50000, 0, 'coldbrewphucbontu_50k.png', 'ly', 0, 1, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(9, 'COLD BREW SỮA TƯƠI', 1, '', 50000, 0, 'coldbrewsuatuoi_50k.jpg', 'ly', 0, 1, 0, '2016-10-25 20:00:16', '2016-10-24 15:11:00'),
+(11, 'COLD BREW SỮA TƯƠI MACCHIATO', 1, '', 50000, 45000, 'coldbresuatuoimacchiato_50k.jpg', 'ly', 0, 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(12, 'COLD BREW TRUYỀN THỐNG', 1, '', 45000, 0, 'coldbrewtruyenthong_45k.jpg', 'ly', 0, 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(13, 'ESPRESSO', 1, 'Một cốc Espresso nguyên bản được bắt đầu bởi những hạt Arabica chất lượng, phối trộn với tỉ lệ cân đối hạt Robusta, cho ra vị ngọt caramel, vị chua dịu và sánh đặc. Để đạt được sự kết hợp này, chúng tôi xay tươi hạt cà phê cho mỗi lần pha.', 35000, 0, 'espresso_35k.jpg', 'ly', 1, 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(14, 'LATTE', 1, 'Khi chuẩn bị Latte, cà phê Espresso và sữa nóng được trộn lẫn vào nhau, bên trên vẫn là lớp foam nhưng mỏng và nhẹ hơn Cappucinno.', 45000, 0, 'latte_45k.jpg', 'ly', 0, 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(15, 'MOCHA', 1, 'Cà phê Mocha được ví von đơn giản là Sốt Sô cô la được pha cùng một tách Espresso.', 49000, 0, 'mocha_49k.jpg', 'ly', 1, 1, 9, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(16, 'SÔ-CÔ-LA ĐÁ', 1, 'Cacao nguyên chất hoà cùng sữa tươi béo ngậy. Vị ngọt tự nhiên, không gắt cổ, để lại một chút đắng nhẹ, cay cay trên đầu lưỡi.', 55000, 0, 'iced_chocolate_55k.jpg', 'ly', 0, 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(17, 'TRÀ CHERRY MACCHIATO', 2, '', 55000, 0, 'tracherrymacchiato_55k.jpg', 'ly', 0, 1, 0, '2016-10-11 19:00:00', '2016-10-26 19:24:00'),
+(18, 'TRÀ ĐÀO CAM SẢ', 2, 'Vị thanh ngọt của đào Hy Lạp, vị chua dịu của Cam Vàng nguyên vỏ, vị chát của trà đen tươi được ủ mới mỗi 4 tiếng, cùng hương thơm nồng đặc trưng của sả chính là điểm sáng làm nên sức hấp dẫn của thức uống này. Sản phẩm hiện có 2 phiên bản Nóng và Lạnh phù hợp cho mọi thời gian trong năm.', 45000, 0, 'tradaocamsa_45k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(19, 'TRÀ ĐEN MACCHIATO', 2, 'Trà đen được ủ mới mỗi ngày, giữ nguyên được vị chát mạnh mẽ đặc trưng của lá trà, phủ bên trên là lớp Macchiato \"homemade\" bồng bềnh quyến rũ vị phô mai mặn mặn mà béo béo.', 42000, 0, 'tradenmacchiato_42k.jpg', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(20, 'TRÀ GẠO RANG MACCHIATO', 2, 'Trà gạo rang, hay còn gọi là Genmaicha, hay Trà xanh gạo lứt có nguồn gốc từ Nhật Bản. Tại The Coffee House, chúng tôi nhấn nhá cho Genmaicha thêm lớp Macchiato để tăng thêm mùi vị cũng như trải nghiệm của chính bạn.', 48000, 0, 'tragaorangmacchiato_48k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(21, 'TRÀ MATCHA LATTE', 2, 'Với màu xanh mát mắt của bột trà Matcha, vị ngọt nhẹ nhàng, pha trộn cùng sữa tươi và lớp foam mềm mịn, Matcha Latte là thức uống yêu thích của tất cả mọi người khi ghé The Coffee House.', 59000, 53000, 'tramatchalatte_59k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(22, 'TRÀ MATCHA MACCHIATO', 2, 'Bột trà xanh Matcha thơm lừng hảo hạng cùng lớp Macchiato béo ngậy là một sự kết hợp tuyệt vời.', 45000, 0, 'tramatchamachiato_45k.jpg', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(23, 'TRÀ OOLONG SEN AN NHIÊN', 2, '', 45000, 0, 'traoolongsenannhien_45k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(24, 'TRÀ OOLONG VẢI NHƯ Ý', 2, '', 45000, 40000, 'traoolongvainhuy_45k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(25, 'TRÀ PHÚC BỒN TỬ', 2, '', 49000, 0, 'traphucbontu_49k.png', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(26, 'TRÀ XOÀI MACCHIATO', 2, '', 55000, 0, 'traxoaimachiato_55k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(27, 'TRÀ XOÀI MACCHIATO 2', 2, '', 55000, 45000, 'traxoaimachiato2_55k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(28, 'CHANH SẢ ĐÁ XAY', 3, '', 49000, 0, 'chanhsadaxay_49k.jpg', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(29, 'CHOCOLATE ĐÁ XAY', 3, 'Vị đắng của cà phê kết hợp cùng vị cacao ngọt ngàocủa sô-cô-la, vị sữa tươi ngọt béo, đem đến trải nghiệm vị giác cực kỳ thú vị.', 59000, 0, 'chocolate_daxay_59k.jpg', 'hộp', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(30, 'COOKIES ĐÁ XAY', 3, 'Những mẩu bánh cookies giòn rụm kết hợp ăn ý với sữa tươi và kem tươi béo ngọt, đem đến cảm giác lạ miệng gây thích thú. Một món uống phá cách dễ thương.', 59000, 0, 'cookies_ice_blended_59k.jpg', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(31, 'ĐÀO VIỆT QUẤT ĐÁ XAY', 3, '', 59000, 0, 'daovietquatdaxay_59k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(32, 'MATCHA ĐÁ XAY', 3, 'Matcha thanh, nhẫn, và đắng nhẹ được nhân đôi sảng khoái khi uống lạnh. Nhấn nhá thêm những nét bùi béo của kem và sữa. Gây thương nhớ vô cùng!', 59000, 0, 'matchadaxay_59k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(33, 'ỔI HỒNG VIỆT QUẤT ĐÁ XAY', 3, '', 59000, 50000, 'oihongvietquatdaxay_59k.jpg', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(34, 'PHÚC BỒN TỬ CAM ĐÁ XAY', 3, '', 59000, 0, 'phucbontucamdaxay_59k.png', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(35, 'SINH TỐ CAM XOÀI', 4, 'Vị mứt cam xoài hòa trộn độc đáo với sữa chua, cho cảm giác chua ngọt rất sướng. Điểm nhấn là những mẩu bánh cookie giòn tan giúp sự thưởng thức thêm thú vị.', 59000, 43000, 'sinhtocamxoai_59k.jpg', 'ly', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(36, 'SINH TỐ VIỆT QUẤT', 4, 'Mứt Việt Quất chua thanh, ngòn ngọt, phối hợp nhịp nhàng với dòng sữa chua bổ dưỡng. Là món sinh tố thơm ngon mà cả đầu lưỡi và làn da đều thích.', 59000, 0, 'sinhtovietquat_59k.jpg', 'ly', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(37, 'BÁNH BÔNG LAN TRỨNG MUỐI', 5, '', 29000, 0, 'banhbonglantrungmuoi_29k.jpg', 'cái', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(38, 'BÁNH CHOCOLATE', 5, '', 29000, 0, 'banhchocolate_29k.jpg', 'cái', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(39, 'BÁNH CROISSANT BƠ TỎI', 5, '', 29000, 0, 'banhcroissantbotoi_29k.jpg', 'cái', 0, 1, 15, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(40, 'BÁNH GẤU CHOCOLATE', 5, '', 39000, 34000, 'banhgauchocolate_39k.jpg', 'cái', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(41, 'BÁNH MATCHA', 5, '', 29000, 0, 'banhmatcha_29k.jpg', 'cái', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(42, 'BÁNH MÌ CHÀ BÔNG PHÔ MAI', 5, '', 32000, 26000, 'banhmichabongphomai_32k.jpg', 'cái', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(43, 'BÁNH PASSION CHEESE', 5, '', 29000, 0, 'banhpassioncheese_29k.jpg', 'cái', 1, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(44, 'BÁNH TIRAMISU', 5, '', 29000, 22000, 'banhtiramisu_29k.jpg', 'cái', 0, 1, 0, '2016-10-12 19:20:00', '2016-10-18 20:20:00'),
+(66, 'Trà sữa trân châu đường đen', 1, 'Trà sữa chưa hết “hot”, mùa hè này lại rộ lên “phiên bản” mới với những nguyên liệu không hề mới mẻ - sữa tươi trân châu đường đen song lại rất đắt khách ở TP.HCM.', 26000, 24000, 'tra-sua-tran-chau-duong-den_36k.jpg', 'Ly', 0, 1, 0, '2019-11-30 14:01:37', '2019-11-30 14:01:37');
 
 -- --------------------------------------------------------
 
