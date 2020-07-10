@@ -21,6 +21,8 @@ namespace WebApplication1.Others
                     var cart = context.Cart.Where(p => p.Matk == userid).FirstOrDefault() as Cart;
                     if (cart != null)
                     {
+                        cart.Total = updateTotal(cart.CartId);
+                        context.SaveChanges();
                         res = cart;
                     }
                 }
@@ -33,6 +35,20 @@ namespace WebApplication1.Others
             }
         }
 
+        public static float updateTotal(int cartid)
+        {
+            using (Context context = new Context())
+            {
+                var sp = context.Sanpham.ToList();
+                var ct = context.CartDetail.Where(p => p.CartId == cartid).ToList();
+                float tong = 0;
+                foreach (var c in ct)
+                {
+                    tong += sp.Find(p => p.Masp == c.Masp).Gia * c.Quantity;
+                }
+                return tong;
+            }
+        }
         public static Khachhang getCurrentUser(String uid)
         {
             if (String.IsNullOrEmpty(uid)) return null;

@@ -25,6 +25,7 @@ namespace WebApplication1.Controllers
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
                 Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
+                showCart();
                 a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 Cartid = a.CartId;
                 ViewData["items"] = getListItemInCart(a.CartId);
@@ -36,15 +37,14 @@ namespace WebApplication1.Controllers
             ViewData["cart"] = a;
             return View();
         }
-        public IActionResult showCart()
+        public void showCart()
         {
             var cart = SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart");
 
-            ViewBag.cart = cart;
+            ViewBag.cart1 = cart;
             //ViewBag.total = cart.Sum(item => item.Product.Price * item.Quantity);
-            return View();
         }
-        public IActionResult Buy(string id)
+        public void Buy(string id)
         {
             //ProductModel productModel = new ProductModel();
             //Se productModel = HttpContext.RequestServices.GetService(typeof(WebApplication1.Models.Sanpham)) as Sanpham;
@@ -71,17 +71,14 @@ namespace WebApplication1.Controllers
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
-            return RedirectToAction("Index");
         }
 
-        [Route("remove/{id}")]
-        public IActionResult Remove(string id)
+        public void Remove(string id)
         {
             List<CartDetail> cart = SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart");
             int index = isExist(id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return RedirectToAction("Index");
         }
 
         private int isExist(string id)
@@ -127,9 +124,8 @@ namespace WebApplication1.Controllers
             if (useridstring != null)
             {
                 int userid = int.Parse(useridstring);
-                
-                Cart a = AddCartToDb(userid, masp, quantity);
-                
+                Cart a = AddCart(userid, masp, quantity);
+                Buy(useridstring);
                 String stat = "success";
                 if(a == null) { stat = "fail"; }
                 if (!checkProduct(masp))
@@ -165,10 +161,16 @@ namespace WebApplication1.Controllers
                 return true;
             }
         }
-        public Cart AddCartToDb(int userid, int masp, int quantity)
+        public Cart AddCart(int userid, int masp, int quantity)
         {
+            Cart a = new Cart();
+            
             using (Context context = new Context())
             {
+                if (!checkProduct(masp))
+                {
+                    return a;
+                }
                 var product = context.Sanpham.Where(p => p.Masp == masp).FirstOrDefault();
                 var cart = context.Cart.Where(p => p.Matk == userid).FirstOrDefault();
                 int cartid = 0;
@@ -226,6 +228,7 @@ namespace WebApplication1.Controllers
             {
                 Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
                 Cart a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
+                //Remove(HttpContext.Request.Cookies["user_id"]);
                 var cd = context.CartDetail.Where(p => p.Masp == masp && p.CartId == a.CartId).Single();
                 context.CartDetail.Remove(cd);
                 int res = context.SaveChanges();

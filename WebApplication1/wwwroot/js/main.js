@@ -13,19 +13,21 @@
                 $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":1 },
                     function (data) {
                         // Successful requests get here
-                        if (data.status == "no product") {
-                            $("#NoProductModal").modal();
-                        }
                         if (data.status == "not signin") {
                             $("#LoginModal").modal();
                         }
                         else {
-                            //update number
-                            $(".shoping-bag > span").text(data.cart.amount);
-                            $(".total-price > span").text(data.cart.total);
-                            $(".total-cart > span").text(data.cart.total);
-                            $(".subtotal-cart > span").text(data.cart.total);
+                            if (data.status == "no product") {
+                                $("#NoProductModal").modal();
+                            } else {
+                                //update number
+                                $(".shoping-bag > span").text(data.cart.amount);
+                                $(".total-price > span").text(data.cart.total);
+                                $(".total-cart > span").text(data.cart.total);
+                                $(".subtotal-cart > span").text(data.cart.total);
                             //$(".shopping-bag").popover("show");
+                            }
+                            
                         }
                     })
             }
@@ -44,7 +46,8 @@
                 function (data) {
                     if (data.status == "success") {
                         $(".shoping-bag > span").text(data.cart.amount);
-                        $(".total-price > span").text(data.cart.total);
+                        $(".total-cart > span").text(data.cart.total);
+                        $(".subtotal-cart > span").text(data.cart.total);
                     }
                     else {
                         if (data.status == "no product") {
