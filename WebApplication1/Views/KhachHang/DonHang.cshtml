@@ -31,7 +31,7 @@
                     <td>@od.Ngaydat</td>
                     @switch (od.Tttt)
                     {
-                        case 0:
+                        case 4:
                             <td><span class="badge badge-dark">Đã hủy</span></td>
                                 break;
                             case 1:
@@ -115,6 +115,12 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer row">
+                        @if (o.Tttt == 0)
+                        {
+                            <button class="btn btn-danger col-sm-3 pl-3">
+                                <a asp-controller="Home" asp-action="HuyDon" asp-route-id="@o.Madh">Hủy đơn</a>
+                        </button>
+                        }
                         <button type="submit" data-dismiss="modal" class="btn btn-success col-sm-3 pl-3">Đóng</button>
                     </div>
             </div>
@@ -123,7 +129,7 @@
     <script>
         $(document).ready(function () {
             $('#bootstrap-data-table-expor').DataTable({
-                "order": [[1, "desc"]]
+                                        "order": [[1, "desc"]]
             });
         });
     </script>

@@ -127,10 +127,15 @@ namespace WebApplication1.Controllers
             if (useridstring != null)
             {
                 int userid = int.Parse(useridstring);
+                
                 Cart a = AddCartToDb(userid, masp, quantity);
                 
                 String stat = "success";
                 if(a == null) { stat = "fail"; }
+                if (!checkProduct(masp))
+                {
+                    stat = "no product";
+                }
                 var mess = new
                 {
                     status = stat,
@@ -148,6 +153,18 @@ namespace WebApplication1.Controllers
             return Json(mess1);
         }
 
+        public Boolean checkProduct(int masp)
+        {
+            using (Context context = new Context())
+            {
+                var s = context.Sanpham.Where(p => p.Masp == masp).Single();
+                if (s.Tt == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
         public Cart AddCartToDb(int userid, int masp, int quantity)
         {
             using (Context context = new Context())

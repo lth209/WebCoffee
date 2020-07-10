@@ -13,6 +13,9 @@
                 $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":1 },
                     function (data) {
                         // Successful requests get here
+                        if (data.status == "no product") {
+                            $("#NoProductModal").modal();
+                        }
                         if (data.status == "not signin") {
                             $("#LoginModal").modal();
                         }
@@ -44,7 +47,9 @@
                         $(".total-price > span").text(data.cart.total);
                     }
                     else {
-                        alert("không thành công");
+                        if (data.status == "no product") {
+                            $("#NoProductModal").modal();
+                        }
                     }
                 })
         }
@@ -307,7 +312,9 @@
                     $(".subtotal-cart > span").text(data.cart.total);
                 }
                 else {
-                    alert("không thành công");
+                    if (data.status == "no product") {
+                        $("#NoProductModal").modal();
+                    }
                 }
             });
         var $item = $button.parent().parent().parent().parent();

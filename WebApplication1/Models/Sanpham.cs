@@ -9,6 +9,7 @@ namespace WebApplication1.Models
         [Key]
         public int Masp { get; set; }
         public string Tensp { get; set; }
+        public int Tt { get; set; }
         public int Maloaisp { get; set; }
         public string Mota { get; set; }
         public float Gia { get; set; }

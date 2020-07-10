@@ -54,6 +54,7 @@
                                     <th>hình ảnh</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá</th>
+                                    <th>Tình trạng</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -61,20 +62,28 @@
 
                                 @foreach (var p in products)
                                 {
-                                    <tr>
-                                        <td>@p.Masp</td>
-                                        <td><img src="../img/product/@p.Hinhanh" style="width: 100px; height:100px"></td>
-                                        <td>@p.Tensp</td>
-                                        <td>@p.Gia</td>
-                                        <td>
-                                            <button class="btn btn-outline-success btn-edit-product" data-id="#ProductModal-@p.Masp">
-                                                <i class="fa fa-edit"></i> Chi tiết
-                                            </button>
-                                            <button class="btn btn-outline-danger btn-remove-product" data-id="@p.Masp">
-                                                <i class="fa fa-close"></i> Xóa
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@p.Masp</td>
+                                    <td><img src="../img/product/@p.Hinhanh" style="width: 100px; height:100px"></td>
+                                    <td>@p.Tensp</td>
+                                    <td>@p.Gia</td>
+                                    @if (p.Tt == 0)
+                                    {
+                                        <td><span class="badge badge-dark">Đã hết</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge badge-success">Còn hàng</span></td>
+                                    }
+                                    <td>
+                                        <button class="btn btn-outline-success btn-edit-product" data-id="#ProductModal-@p.Masp">
+                                            <i class="fa fa-edit"></i> Chi tiết
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-remove-product" data-id="@p.Masp">
+                                            <i class="fa fa-close"></i> Xóa
+                                        </button>
+                                    </td>
+                                </tr>
                                 }
 
 
@@ -114,6 +123,11 @@
                                 <input class="form-control" name="gia" value="@item.Gia" required><br />
                             </div>
                             <div class="col-md-6">
+                                <span>Tình trạng: </span>
+                                <select name="tt" id="select" class="form-control">
+                                    <option value="0">Hết món</option>
+                                    <option value="1">Còn món</option>
+                                </select>
                                 <span>Mô tả: </span><br>
                                 <textarea name="mota" id="textarea-input" rows="9" placeholder="Nội dung" class="form-control">@item.Mota</textarea><br />
                             </div>
@@ -164,6 +178,7 @@
                                         <option value="@loai.Maloaisp">@loai.Tenloaisp</option>
                                     }
                                 </select>
+                                
                                 <span>Mô tả: </span><br>
                                 <textarea name="mota" id="textarea-input" rows="9" placeholder="Nội dung" class="form-control"></textarea><br />
                             </div>

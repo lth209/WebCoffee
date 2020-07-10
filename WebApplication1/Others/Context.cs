@@ -484,7 +484,9 @@ namespace WebApplication1.Others
                 entity.ToTable("sanpham");
 
                 entity.Property(e => e.Masp).HasColumnName("masp");
-
+                entity.Property(e => e.Tt)
+                    .HasColumnName("tt")
+                    .HasDefaultValueSql("'0'");
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
                     .HasColumnType("timestamp")

@@ -216,6 +216,7 @@ namespace WebApplication1.Controllers
                 sp.Tensp = model.Tensp;
                 sp.Mota = model.Mota;
                 sp.Gia = model.Gia;
+                sp.Tt = model.Tt;
                 context.SaveChanges();
                 return RedirectToAction("ProductManager", "Admin");
             }
@@ -246,6 +247,7 @@ namespace WebApplication1.Controllers
             using (Context context = new Context())
             {
                 sp.CreatedAt = DateTime.Now;
+                sp.Tt = 1;
                 context.Sanpham.Add(sp);
                 context.SaveChanges();
             }
