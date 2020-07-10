@@ -140,5 +140,6 @@ namespace WebApplication1.Controllers
                 ViewData["producttypes"] = productTypes;
             }
         }
+       
     }
 }

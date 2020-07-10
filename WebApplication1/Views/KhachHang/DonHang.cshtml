@@ -8,6 +8,7 @@
 <div class="card">
     <div class="card-header">
         <strong class="card-title">Data Table</strong>
+        <button class="btnPrint btn btn-info">In hóa đơn</button>
     </div>
     <div class="card-body">
         <table id="bootstrap-data-table-export" class="table table-striped table-bordered ">
@@ -24,33 +25,35 @@
 
                 @foreach (var od in orders)
                 {
-                    <tr>
-                        <td>@od.Madh</td>
-                        <td>@od.Tongtien</td>
-                        <td>@od.Ngaydat</td>
-                        @switch (od.Tttt)
-                        {
-                            case 1:
-                                <td><span class="badge badge-success">Đã thanh toán</span></td>
-                                break;
-                            case 2:
-                                <td><span class="badge badge-primary">Đang chuẩn bị</span></td>
-                                break;
-                            case 3:
-                                <td><span class="badge badge-warning">Đang giao hàng</span></td>
-                                break;
-                            default:
-                                <td><span class="badge badge-danger">Đang xử lý</span></td>
-                                break;
-                        }
-                        <td>
+                <tr>
+                    <td>@od.Madh</td>
+                    <td>@od.Tongtien</td>
+                    <td>@od.Ngaydat</td>
+                    @switch (od.Tttt)
+                    {
+                        case 0:
+                            <td><span class="badge badge-dark">Đã hủy</span></td>
+                        case 1:
+                            <td><span class="badge badge-success">Đã thanh toán</span></td>
+                            break;
+                        case 2:
+                            <td><span class="badge badge-primary">Đang chuẩn bị</span></td>
+                            break;
+                        case 3:
+                            <td><span class="badge badge-warning">Đang giao hàng</span></td>
+                            break;
+                        default:
+                            <td><span class="badge badge-danger">Đang xử lý</span></td>
+                            break;
+                    }
+                    <td>
 
-                                <button class="btn btn-outline-success btn-od-detail" data-id="#DetailModal-@od.Madh">
-                                    <i class="fa fa-info"></i> Detail
-                                </button>
-        
-                        </td>
-                    </tr>
+                        <button class="btn btn-outline-success btn-od-detail" data-id="#DetailModal-@od.Madh">
+                            <i class="fa fa-info"></i> Detail
+                        </button>
+
+                    </td>
+                </tr>
                 }
 
 

@@ -68,9 +68,11 @@
                                         case 3:
                                             <td><button class="btn btn-warning">Đang giao hàng</button></td>
                                             break;
+                                        case 4:
+                                            <td><button class="btn btn-dark">Đã hủy</button></td>
+                                            break;
                                         default:
                                             <td><button class="btn btn-danger">Đang xử lý</button></td>
-                                            break;
                                     }
                                     <td>
                                         <form asp-controller="Admin" asp-action="OrderDetail" asp-route-id="@od.Madh" method="post">
