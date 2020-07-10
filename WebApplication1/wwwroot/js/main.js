@@ -10,7 +10,7 @@
 
             if (recordAddToCart != '') {
                 // Perform the ajax post
-                $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":"1" },
+                $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":1 },
                     function (data) {
                         // Successful requests get here
                         if (data.status == "not signin") {
@@ -22,7 +22,7 @@
                             $(".total-price > span").text(data.cart.total);
                             $(".total-cart > span").text(data.cart.total);
                             $(".subtotal-cart > span").text(data.cart.total);
-                            $(".shopping-bag").popover("show");
+                            //$(".shopping-bag").popover("show");
                         }
                     })
             }

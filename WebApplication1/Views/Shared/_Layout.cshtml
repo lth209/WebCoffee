@@ -59,41 +59,31 @@
                         <li><a href="#">English</a></li>
                     </ul>
                 </div>*@
-            <div class="header__top__right__auth">
-                <div class="dropdown">
-                    @if (kh != null)
-                    {
-                        <a class="dropdown-toggle" data-toggle="dropdown"><img style="float: right;margin-top: 4px;width: 32px;" class="user-avatar rounded-circle" src="../img/admin.png" alt="User Avatar"></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="./shop-details.html">Thông tin cá nhân</a>
-                            <a class="dropdown-item" href="./shoping-cart.html">Thông tin đơn hàng</a>
-                            @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
-                            {
-                                <a class="dropdown-item" href="./shoping-cart.html">Admin dashboard</a>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Đăng nhập</a>
-                    }
-                </div>
-
+            <div class="header__top__right__language">
+                @if (kh != null)
+                {
+                    <img src="../img/admin.png" style="width:50px; height:50px" alt="">
+                    <span class="arrow_carrot-down"></span>
+                    <ul>
+                        <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="Index">Cá nhân</a></li>
+                        <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="DonHang">Đơn hàng</a></li>
+                        @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
+                        {
+                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin</a></li>
+                        }
+                        <li><a class="dropdown-item" asp-action="LogOut" asp-controller="Home">Đăng xuất</a></li>
+                    </ul>
+                }
+                else
+                {
+                    <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
+                }
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                 <li><a href="./shop-grid.html">Cửa hàng</a></li>
-                <li>
-                    <a href="#">Trang chủ</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Sản phẩm</a></li>
-                        <li><a href="./shoping-cart.html">Giỏ hàng</a></li>
-                        <li><a href="./checkout.html">Thanh toán</a></li>
-                        <li><a href="./blog-details.html">Bài viết hay</a></li>
-                    </ul>
-                </li>
                 <li><a href="./blog.html">Bài viết</a></li>
                 <li><a href="./contact.html">Liên hệ</a></li>
             </ul>
@@ -144,26 +134,26 @@
                                         <li><a href="#">English</a></li>
                                     </ul>
                                 </div>*@
-                            <div class="header__top__right__auth ">
-                                <div class="dropdown">
-                                    @if (kh != null)
+                        <div class="header__top__right__language">
+                            @if (kh != null)
+                            {
+                                <img src="../img/admin.png" style="width:50px; height:50px" alt="">
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="Index">Cá nhân</a></li>
+                                    <li><a class="dropdown-item" asp-controller="KhachHang" asp-action="DonHang">Đơn hàng</a></li>
+                                    @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
                                     {
-                                        <a class="dropdown-toggle" data-toggle="dropdown"><img style="float: right;margin-top: 4px;width: 32px;" class="user-avatar rounded-circle" src="../img/admin.png" alt="User Avatar"></a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="./shop-details.html">Thông tin cá nhân</a>
-                                            <a class="dropdown-item" href="./shoping-cart.html">Thông tin đơn hàng</a>
-                                            @if (WebApplication1.Others.Function.CheckRole(kh.Matk))
-                                            {
-                                                <a class="dropdown-item" href="./shoping-cart.html">Admin dashboard</a>
-                                            }
-                                        </div>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Admin</a></li>
                                     }
-                                    else
-                                    {
-                                        <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Đăng nhập</a>
-                                    }
-                                </div>
-                            </div>
+                                    <li><a class="dropdown-item" asp-action="LogOut" asp-controller="Home">Đăng xuất</a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <a asp-controller="DangNhap" asp-action="Index"><i class="fa fa-user"></i> Login</a>
+                            }
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -181,15 +171,6 @@
                         <ul>
                             <li class="active"><a>Trang chủ</a></li>
                             <li><a href="./shop-grid.html">Cửa hàng</a></li>
-                            <li>
-                                <a href="#">Trang chủ</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Sản phẩm</a></li>
-                                    <li><a href="./shoping-cart.html">Giỏ hàng</a></li>
-                                    <li><a href="./checkout.html">Thanh toán</a></li>
-                                    <li><a href="./blog-details.html">Bài viết hay</a></li>
-                                </ul>
-                            </li>
                             <li><a href="./blog.html">Bài viết</a></li>
                             <li><a href="./contact.html">Liên hệ</a></li>
                         </ul>

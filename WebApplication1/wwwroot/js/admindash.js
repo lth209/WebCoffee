@@ -8,6 +8,7 @@
         var recordAddToCart = $(this).attr("data-id");
         $(recordAddToCart).modal();
     });
+
     $(".btn-edit-product").on("click", function () {
 
         var recordAddToCart = $(this).attr("data-id");
@@ -17,6 +18,21 @@
 
         var recordAddToCart = $(this).attr("data-id");
         $(recordAddToCart).modal();
+    });
+    $(".btn-remove-acc").on("click", function () {
+        var recordItem = $(this).attr("data-id");
+        $(this).parent().parent().remove();
+        if (recordItem != '') {
+            $.post("../Admin/RemoveAccount", { "id": recordItem },
+                function (data) {
+                    if (data == "success") {
+
+                    }
+                    else {
+                        alert("không thành công");
+                    }
+                });
+        }
     });
     $(".btn-add-product").on("click", function () {
         $("#AddProduct").modal();

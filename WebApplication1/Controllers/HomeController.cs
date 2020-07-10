@@ -31,6 +31,7 @@ namespace WebApplication1.Controllers
             ReadAllProductTypes();
             ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             ViewData["cart"] = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
+            ViewData["sp"] = getSanphamGiaRe();
             return View();
         }
 
@@ -80,7 +81,14 @@ namespace WebApplication1.Controllers
            
         }
 
-        
+        public List<Sanpham> getSanphamGiaRe()
+        {
+            using (Context context = new Context())
+            {
+                var sp = context.Sanpham.OrderBy(x => x.Gia).ToList();
+                return sp;
+            }
+        }
         public void ReadAllProducts()
         {
             using (Context context = new Context())

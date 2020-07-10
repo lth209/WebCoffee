@@ -225,6 +225,20 @@ namespace WebApplication1.Controllers
             ViewData["accs"] = GetAccounts();
             return View(); //CustomerManager.cshtml
         }
+        public IActionResult RemoveAccount(int id)
+        {
+            using (Context context = new Context())
+            {
+                var u = context.Users.Where(p => p.Id == id).Single();
+                context.Users.Remove(u);
+                int row = context.SaveChanges();
+                if (row > 0)
+                {
+                    return Json("success");
+                }
+                return Json("fail");
+            }
+        }
 
         public void AddNewProduct(Sanpham sp)
         {
@@ -320,7 +334,40 @@ namespace WebApplication1.Controllers
         {
             return View("Views/Admin/Chart/OrderChart.cshtml");
         }
-
+        public IActionResult ChartAtProduct()
+        {
+            return View("Views/Admin/Chart/ProductChart.cshtml");
+        }
+        [HttpPost]
+        public IActionResult ProductChart()
+        {
+            if (!CheckRole())
+            {
+                return RedirectToAction("UnauthorizedAccess", "Home");
+            }
+            using (Context context = new Context())
+            {
+                ArrayList sp = new ArrayList();
+                ArrayList data = new ArrayList();
+                List<Sanpham> sps = GetSanphams();
+                var query = context.Ctdh
+                    .Where(p => p.CreatedAt.Year ==2020)
+                   .GroupBy(p => p.CreatedAt.Month)
+                   .Select(g => new { sp = g.Key, sum = g.Sum(x => x.Soluong) })
+                   .OrderBy(g => g.sp).ToList();
+                foreach (var q in query)
+                {
+                    sp.Add(q.sp);
+                    data.Add(q.sum);
+                }
+                var mess = new
+                {
+                    sp = sp,
+                    Data = data
+                };
+                return Json(mess);
+            }
+        }
         [HttpPost]
         public IActionResult OrderChart()
         {
@@ -333,8 +380,10 @@ namespace WebApplication1.Controllers
                 ArrayList years = new ArrayList();
                 ArrayList data = new ArrayList();
                 var query = context.Donhang
-                   .GroupBy(p => p.Ngaydat.Year)
-                   .Select(g => new { years = g.Key, sum = g.Sum(x => x.Tongtien) }).ToList();
+                   .Where(p => p.Ngaydat.Year == 2020)
+                   .GroupBy(g => g.Ngaydat.Month)
+                   .Select(g => new { years = g.Key, sum = g.Sum(x => x.Tongtien) })
+                   .OrderBy(g => g.years).ToList();
                 foreach (var q in query)
                 {
                     years.Add(q.years);
@@ -359,8 +408,10 @@ namespace WebApplication1.Controllers
                 ArrayList years = new ArrayList();
                 ArrayList data = new ArrayList();
                 var query = context.Donhang
-                   .GroupBy(p => p.Ngaydat.Year)
-                   .Select(g => new { years = g.Key, count = g.Count() }).ToList();
+                    .Where(p => p.Ngaydat.Year == 2020)
+                   .GroupBy(p => p.Ngaydat.Month)
+                   .Select(g => new { years = g.Key, count = g.Count() })
+                   .OrderBy(g => g.years).ToList();
                 foreach (var q in query)
                 {
                     years.Add(q.years);
