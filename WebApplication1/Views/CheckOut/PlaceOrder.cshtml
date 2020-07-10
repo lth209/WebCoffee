@@ -2,9 +2,21 @@
 @{
   
     ViewData["Title"] = "PlaceOrder";
+    int madh = int.Parse(ViewData["madh"].ToString());
 }
 
-<h1>Thêm vào giỏ hàng thành công!</h1>
-<span></span>
+    <div class="jumbotron text-center">
+        <h1 class="display-3">Thank You!</h1>
+        <p class="lead"><strong>Đặt hàng thành công!</strong> Thông tin đơn hàng đã được gửi qua mail của quý khách.</p>
+        <hr>
+        <p>
+            Kiểm tra đơn hàng #@madh<a asp-controller="KhachHang" asp-action="DonHang"> Chi tiết</a>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="Index" role="button">
+            <i class="fa fa-home"></i>
+            Trở về trang chủ</a>
+        </p>
+    </div>
 <!--dẫn link Tình trạng đơn hàng-->
 

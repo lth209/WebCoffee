@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyCardSession.Helpers;
 using Newtonsoft.Json;
 using WebApplication1.Models;
 using WebApplication1.Others;
@@ -24,19 +25,80 @@ namespace WebApplication1.Controllers
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
                 Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
-
                 a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 Cartid = a.CartId;
                 ViewData["items"] = getListItemInCart(a.CartId);
                 ViewData["cartdetails"] = getListOfCartDetail(a.CartId);
+                ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
+                ViewData["isSignin"] = Userid;
                 Console.WriteLine("yo");
             }
             ViewData["cart"] = a;
             return View();
         }
+        public IActionResult showCart()
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart");
 
+            ViewBag.cart = cart;
+            //ViewBag.total = cart.Sum(item => item.Product.Price * item.Quantity);
+            return View();
+        }
+        public IActionResult Buy(string id)
+        {
+            //ProductModel productModel = new ProductModel();
+            //Se productModel = HttpContext.RequestServices.GetService(typeof(WebApplication1.Models.Sanpham)) as Sanpham;
+
+            if (SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart") == null)
+            {
+                List<CartDetail> cart = new List<CartDetail>(); //mảng các item
+
+                cart.Add(new CartDetail { Masp = int.Parse(id), Quantity = 1 });
+
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            }
+            else
+            {
+                List<CartDetail> cart = SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart");
+                int index = isExist(id);
+                if (index != -1)
+                {
+                    cart[index].Quantity++;
+                }
+                else
+                {
+                    cart.Add(new CartDetail { Masp = int.Parse(id), Quantity = 1 });
+                }
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [Route("remove/{id}")]
+        public IActionResult Remove(string id)
+        {
+            List<CartDetail> cart = SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart");
+            int index = isExist(id);
+            cart.RemoveAt(index);
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            return RedirectToAction("Index");
+        }
+
+        private int isExist(string id)
+        {
+            List<CartDetail> cart = SessionHelper.GetObjectFromJson<List<CartDetail>>(HttpContext.Session, "cart");
+            for (int i = 0; i < cart.Count; i++)
+            {
+                if (cart[i].Masp == int.Parse(id))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
         public List<Sanpham> getListItemInCart(int cartid)
         {
+
             using (Context context = new Context())
             {
                 List<Sanpham> products = new List<Sanpham>();
@@ -65,9 +127,15 @@ namespace WebApplication1.Controllers
             if (useridstring != null)
             {
                 int userid = int.Parse(useridstring);
+                
                 Cart a = AddCartToDb(userid, masp, quantity);
+                
                 String stat = "success";
                 if(a == null) { stat = "fail"; }
+                if (!checkProduct(masp))
+                {
+                    stat = "no product";
+                }
                 var mess = new
                 {
                     status = stat,
@@ -85,6 +153,18 @@ namespace WebApplication1.Controllers
             return Json(mess1);
         }
 
+        public Boolean checkProduct(int masp)
+        {
+            using (Context context = new Context())
+            {
+                var s = context.Sanpham.Where(p => p.Masp == masp).Single();
+                if (s.Tt == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
         public Cart AddCartToDb(int userid, int masp, int quantity)
         {
             using (Context context = new Context())
@@ -103,6 +183,7 @@ namespace WebApplication1.Controllers
                     c.Amount = quantity;
                     c.Total = product.Gia * quantity;
                     context.Cart.Add(c);
+                    cart = c;
                 }
                 int rows = context.SaveChanges();
                 if (rows > 0)

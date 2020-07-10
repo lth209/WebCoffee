@@ -7,11 +7,15 @@
     /*Thêm vào giỏ hàng*/
         $(".fa-shopping-cart").on("click", function () {
             var recordAddToCart = $(this).attr("data-id");
+
             if (recordAddToCart != '') {
                 // Perform the ajax post
-                $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":"1" },
+                $.post("/Shoppingcart/AddToCart", {"masp": recordAddToCart, "quantity":1 },
                     function (data) {
                         // Successful requests get here
+                        if (data.status == "no product") {
+                            $("#NoProductModal").modal();
+                        }
                         if (data.status == "not signin") {
                             $("#LoginModal").modal();
                         }
@@ -21,7 +25,7 @@
                             $(".total-price > span").text(data.cart.total);
                             $(".total-cart > span").text(data.cart.total);
                             $(".subtotal-cart > span").text(data.cart.total);
-                            $(".shoppịng-bag").popover("show");
+                            //$(".shopping-bag").popover("show");
                         }
                     })
             }
@@ -34,7 +38,6 @@
     /*thêm xóa giỏ hàng*/
     $(".shoping__cart__item__close").on("click", function () {
         var recordItem = $(this).attr("data-id");
-        alert(recordItem);
         $(this).parent().remove();
         if (recordItem != '') {
             $.post("Shoppingcart/RemoveItem", { "masp": recordItem },
@@ -44,7 +47,9 @@
                         $(".total-price > span").text(data.cart.total);
                     }
                     else {
-                        alert("không thành công");
+                        if (data.status == "no product") {
+                            $("#NoProductModal").modal();
+                        }
                     }
                 })
         }
@@ -267,6 +272,7 @@
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
+        //inc button tăngsl
         if ($button.hasClass('inc')) {
             var newVal = parseFloat(oldValue) + 1;
         } else {
@@ -306,9 +312,11 @@
                     $(".subtotal-cart > span").text(data.cart.total);
                 }
                 else {
-                    alert("không thành công");
+                    if (data.status == "no product") {
+                        $("#NoProductModal").modal();
+                    }
                 }
-            })
+            });
         var $item = $button.parent().parent().parent().parent();
         var gia = $item.find(".shoping__cart__price").text();
         $item.find(".shoping__cart__total").text(gia * newVal);

@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         {
         }
 
-        public Ctdh(int madh, int masp, int soluong, double gia, DateTime? createdAt, DateTime? updatedAt)
+        public Ctdh(int madh, int masp, int soluong, double gia, DateTime createdAt, DateTime? updatedAt)
         {
             Madh = madh;
             Masp = masp;
@@ -26,7 +26,7 @@ namespace WebApplication1.Models
         public int Masp { get; set; }
         public int Soluong { get; set; }
         public double Gia { get; set; }
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
 }

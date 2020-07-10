@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class CheckOutController : Controller
     {
-        private int Userid;
+        private string Userid;
         private int Cartid;
         private Cart a;
         private Khachhang user;
@@ -24,17 +24,39 @@ namespace WebApplication1.Controllers
         {
             _emailSender = emailSender;
         }
-
+        public Boolean CheckRole()
+        {
+            string uid = HttpContext.Request.Cookies["user_id"];
+            if (uid != null)
+            {
+                //int id = int.Parse(uid);
+                //using (Context context = new Context())
+                //{
+                //    Users currentuser = context.Users.Where(p => p.Id == id).Single();
+                //    if (currentuser.Maquyen == 2)   //Admin
+                //    {
+                //        return true;
+                //    }
+                //}
+                return true;
+            }
+            return false;
+        }
         public IActionResult Index()
         {
+            if (!CheckRole())
+            {
+                return View("Views/Shared/UnauthorizedAccess.cshtml");
+            }
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
-                Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
+                Userid = HttpContext.Request.Cookies["user_id"];
                 a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 cds = GetCartDetail(a.CartId);
-                user = Function.getCurrentUser(Userid);
+                user = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 ViewData["products"] = GetSanphams();
                 ViewData["cds"] = cds;
+                ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 ViewData["user"] = user;
                 Cartid = a.CartId;
                 Console.WriteLine("yo");
@@ -64,21 +86,30 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult PlaceOrder(string hoten, string country, string tenduong, string diachi, string sdt, string email, string ghichu)
         {
-            Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
-            user = Function.getCurrentUser(Userid);
+            if (!CheckRole())
+            {
+                return RedirectToAction("UnauthorizedAccess", "Home");
+            }
+            user = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             DateTime ngaydat = DateTime.Now;
-            int madh = AddToOrder(user.Makh, ngaydat, ghichu);
+            String address = tenduong + ", " + diachi + ", " + country;
+            int madh = AddToOrder(user.Makh, ngaydat, ghichu, address, hoten, sdt);
+            ViewData["madh"] = madh;
+            ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             sendMail(madh, hoten, country, tenduong, diachi, sdt, email, ghichu);
             ViewData["cart"] = new Cart();
             return View();        
         }
-         public int AddToOrder(int makh, DateTime ngaydat, string ghichu)
+         public int AddToOrder(int makh, DateTime ngaydat, string ghichu, string diachi, string hoten, string sdt)
         {
             a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
             cds = GetCartDetail(a.CartId);
             using (Context context = new Context())
             {
                 Donhang o = new Donhang(makh, ngaydat, a.Total, "ATM", ghichu, ngaydat);
+                o.Diachi = diachi;
+                o.Hoten = hoten;
+                o.Sdt = sdt;
                 context.Donhang.Add(o);
                 int row = context.SaveChanges();
                 if (row > 0)

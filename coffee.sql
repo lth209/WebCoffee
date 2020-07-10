@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 10, 2020 lúc 05:41 AM
--- Phiên bản máy phục vụ: 10.3.16-MariaDB
--- Phiên bản PHP: 7.3.6
+-- Thời gian đã tạo: Th7 10, 2020 lúc 05:24 AM
+-- Phiên bản máy phục vụ: 10.4.13-MariaDB
+-- Phiên bản PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -46,8 +45,18 @@ CREATE TABLE `activations` (
 
 CREATE TABLE `cart` (
   `cartid` int(10) UNSIGNED NOT NULL,
-  `matk` int(10) UNSIGNED NOT NULL
+  `matk` int(10) UNSIGNED NOT NULL,
+  `total` float NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`cartid`, `matk`, `total`, `amount`) VALUES
+(17, 22, 162000, 4),
+(30, 29, 68000, 2);
 
 -- --------------------------------------------------------
 
@@ -60,6 +69,17 @@ CREATE TABLE `cartdetail` (
   `masp` int(10) UNSIGNED NOT NULL,
   `quantity` int(5) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cartdetail`
+--
+
+INSERT INTO `cartdetail` (`cartid`, `masp`, `quantity`) VALUES
+(17, 1, 2),
+(17, 4, 1),
+(17, 17, 1),
+(30, 4, 1),
+(30, 40, 1);
 
 -- --------------------------------------------------------
 
@@ -90,8 +110,8 @@ INSERT INTO `ctdh` (`ma_ctdh`, `madh`, `masp`, `soluong`, `gia`, `created_at`, `
 (24, 20, 21, 5, 53000, '2019-12-04 09:34:41', '2019-12-04 09:34:41'),
 (23, 19, 3, 2, 29000, '2019-12-04 07:52:20', '2019-12-04 07:52:20'),
 (22, 19, 7, 1, 42000, '2019-12-04 07:52:20', '2019-12-04 07:52:20'),
-(21, 18, 19, 2, 42000, '2019-12-04 07:29:31', '2019-12-04 07:29:31'),
-(20, 18, 13, 1, 35000, '2019-12-04 07:29:31', '2019-12-04 07:29:31'),
+(103, 56, 7, 1, 45000, '2020-06-30 10:06:08', '0000-00-00 00:00:00'),
+(102, 18, 33, 3, 177000, '2020-06-29 12:32:26', '0000-00-00 00:00:00'),
 (30, 23, 29, 5, 59000, '2019-12-05 07:41:02', '2019-12-05 07:41:02'),
 (31, 23, 34, 4, 59000, '2019-12-05 07:41:02', '2019-12-05 07:41:02'),
 (32, 24, 42, 5, 26000, '2017-07-19 07:47:40', '2017-07-19 07:47:40'),
@@ -105,7 +125,61 @@ INSERT INTO `ctdh` (`ma_ctdh`, `madh`, `masp`, `soluong`, `gia`, `created_at`, `
 (40, 27, 40, 4, 34000, '2018-06-20 07:51:37', '2018-06-20 07:51:37'),
 (41, 27, 2, 2, 29000, '2018-06-20 07:51:37', '2018-06-20 07:51:37'),
 (42, 28, 11, 4, 45000, '2019-12-05 08:54:13', '2019-12-05 08:54:13'),
-(43, 28, 43, 3, 29000, '2019-12-05 08:54:13', '2019-12-05 08:54:13');
+(43, 28, 43, 3, 29000, '2019-12-05 08:54:13', '2019-12-05 08:54:13'),
+(95, 18, 15, 1, 49000, '2020-06-26 09:26:43', '0000-00-00 00:00:00'),
+(94, 18, 9, 1, 50000, '2020-06-26 09:21:58', '0000-00-00 00:00:00'),
+(98, 52, 4, 1, 29000, '2020-06-29 12:18:06', '0000-00-00 00:00:00'),
+(99, 52, 7, 1, 45000, '2020-06-29 12:18:06', '0000-00-00 00:00:00'),
+(91, 51, 29, 2, 118000, '2020-06-22 10:27:50', '0000-00-00 00:00:00'),
+(90, 51, 16, 3, 165000, '2020-06-22 10:27:50', '0000-00-00 00:00:00'),
+(89, 50, 30, 1, 59000, '2020-06-22 10:16:35', '0000-00-00 00:00:00'),
+(88, 50, 4, 1, 29000, '2020-06-22 10:16:35', '0000-00-00 00:00:00'),
+(87, 49, 29, 1, 59000, '2020-06-22 10:10:34', '0000-00-00 00:00:00'),
+(86, 49, 4, 1, 29000, '2020-06-22 10:10:34', '0000-00-00 00:00:00'),
+(85, 48, 7, 1, 45000, '2020-06-22 10:07:29', '0000-00-00 00:00:00'),
+(84, 48, 4, 1, 29000, '2020-06-22 10:07:29', '0000-00-00 00:00:00'),
+(83, 47, 7, 1, 45000, '2020-06-22 09:20:46', '0000-00-00 00:00:00'),
+(82, 47, 4, 2, 58000, '2020-06-22 09:20:46', '0000-00-00 00:00:00'),
+(81, 45, 39, 1, 29000, '2020-06-22 09:16:52', '0000-00-00 00:00:00'),
+(80, 45, 26, 3, 165000, '2020-06-22 09:16:52', '0000-00-00 00:00:00'),
+(79, 45, 15, 1, 49000, '2020-06-22 09:16:52', '0000-00-00 00:00:00'),
+(78, 44, 39, 1, 29000, '2020-06-22 08:37:39', '0000-00-00 00:00:00'),
+(77, 44, 26, 3, 165000, '2020-06-22 08:37:39', '0000-00-00 00:00:00'),
+(76, 44, 15, 1, 49000, '2020-06-22 08:37:39', '0000-00-00 00:00:00'),
+(75, 43, 39, 1, 29000, '2020-06-22 08:35:24', '0000-00-00 00:00:00'),
+(74, 43, 26, 3, 165000, '2020-06-22 08:35:24', '0000-00-00 00:00:00'),
+(73, 43, 15, 1, 49000, '2020-06-22 08:35:24', '0000-00-00 00:00:00'),
+(72, 42, 39, 1, 29000, '2020-06-22 08:30:26', '0000-00-00 00:00:00'),
+(71, 42, 26, 3, 165000, '2020-06-22 08:30:26', '0000-00-00 00:00:00'),
+(70, 42, 15, 1, 49000, '2020-06-22 08:30:26', '0000-00-00 00:00:00'),
+(100, 54, 1, 1, 39000, '2020-06-29 12:21:31', '0000-00-00 00:00:00'),
+(101, 54, 7, 1, 45000, '2020-06-29 12:21:31', '0000-00-00 00:00:00'),
+(104, 56, 31, 1, 59000, '2020-06-30 10:06:09', '0000-00-00 00:00:00'),
+(105, 56, 40, 1, 39000, '2020-06-30 10:06:09', '0000-00-00 00:00:00'),
+(106, 18, 5, 1, 45000, '2020-06-30 10:08:25', '0000-00-00 00:00:00'),
+(107, 57, 7, 1, 45000, '2020-06-30 10:14:08', '0000-00-00 00:00:00'),
+(108, 57, 28, 1, 49000, '2020-06-30 10:14:08', '0000-00-00 00:00:00'),
+(109, 58, 7, 1, 45000, '2020-06-30 10:28:20', '0000-00-00 00:00:00'),
+(110, 58, 28, 1, 49000, '2020-06-30 10:28:20', '0000-00-00 00:00:00'),
+(115, 26, 9, 8, 400000, '2020-07-04 20:50:35', '0000-00-00 00:00:00'),
+(116, 27, 42, 6, 192000, '2020-07-04 20:51:00', '0000-00-00 00:00:00'),
+(117, 26, 31, 17, 1003000, '2020-07-04 20:51:53', '0000-00-00 00:00:00'),
+(118, 59, 4, 2, 58000, '2020-07-06 10:30:20', '0000-00-00 00:00:00'),
+(119, 59, 11, 5, 250000, '2020-07-06 20:43:45', '0000-00-00 00:00:00'),
+(120, 59, 42, 1, 32000, '2020-04-06 20:43:51', '0000-00-00 00:00:00'),
+(121, 59, 24, 1, 45000, '2020-03-06 20:44:04', '0000-00-00 00:00:00'),
+(122, 59, 2, 1, 29000, '2020-07-06 20:44:11', '0000-00-00 00:00:00'),
+(123, 55, 12, 1, 45000, '2020-07-07 10:52:44', '0000-00-00 00:00:00'),
+(124, 60, 4, 1, 29000, '2020-06-08 16:47:03', '0000-00-00 00:00:00'),
+(125, 60, 7, 1, 45000, '2020-02-08 16:47:03', '0000-00-00 00:00:00'),
+(126, 61, 1, 2, 78000, '2020-03-08 17:01:26', '0000-00-00 00:00:00'),
+(127, 61, 7, 1, 45000, '2020-03-08 17:01:26', '0000-00-00 00:00:00'),
+(128, 62, 7, 1, 45000, '2020-04-08 17:17:05', '0000-00-00 00:00:00'),
+(129, 62, 37, 2, 58000, '2020-02-08 17:17:05', '0000-00-00 00:00:00'),
+(130, 63, 23, 1, 45000, '2020-05-09 11:34:55', '0000-00-00 00:00:00'),
+(131, 63, 29, 4, 236000, '2020-06-09 11:34:55', '0000-00-00 00:00:00'),
+(132, 64, 26, 2, 110000, '2020-01-09 11:51:45', '0000-00-00 00:00:00'),
+(133, 65, 4, 1, 29000, '2020-07-09 12:50:28', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -128,7 +202,7 @@ CREATE TABLE `cthd` (
 --
 
 INSERT INTO `cthd` (`ma_cthd`, `mahd`, `masp`, `soluong`, `gia`, `created_at`, `updated_at`) VALUES
-(38, 36, 22, 3, 45000, '2017-12-04 09:35:17', '2017-12-04 09:35:17'),
+(38, 36, 22, 3, 45000, '2017-01-04 09:35:17', '2017-12-04 09:35:17'),
 (37, 35, 7, 1, 42000, '2019-12-04 07:53:33', '2019-12-04 07:53:33'),
 (36, 35, 3, 2, 29000, '2019-12-04 07:53:33', '2019-12-04 07:53:33'),
 (35, 34, 13, 1, 35000, '2019-12-04 07:30:14', '2019-12-04 07:30:14'),
@@ -153,14 +227,6 @@ INSERT INTO `cthd` (`ma_cthd`, `mahd`, `masp`, `soluong`, `gia`, `created_at`, `
 (56, 44, 11, 4, 45000, '2019-12-07 00:58:25', '2019-12-07 00:58:25'),
 (57, 44, 43, 3, 29000, '2019-12-07 00:58:25', '2019-12-07 00:58:25'),
 (58, 54, 3, 1, 10000, '2020-06-05 08:22:34', '0000-00-00 00:00:00');
-
---
--- Bẫy `cthd`
---
-DELIMITER $$
-CREATE TRIGGER `capnhatbestseller` AFTER INSERT ON `cthd` FOR EACH ROW UPDATE `sanpham` SET `SellQuantity`= (SELECT count(masp) FROM CTHD WHERE masp = new.masp) WHERE masp = new.masp
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -198,25 +264,53 @@ CREATE TABLE `donhang` (
   `ghichu` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT current_timestamp(),
-  `tttt` int(2) NOT NULL DEFAULT 0 COMMENT 'Trạng thái thanh toán'
+  `tttt` int(2) NOT NULL DEFAULT 0 COMMENT 'Trạng thái thanh toán',
+  `diachi` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `sdt` varchar(11) NOT NULL,
+  `hoten` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `shipper` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_vietnamese_ci DEFAULT 'Nguyễn Văn A'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Đang đổ dữ liệu cho bảng `donhang`
 --
 
-INSERT INTO `donhang` (`madh`, `makh`, `ngaydat`, `tongtien`, `httt`, `ghichu`, `created_at`, `updated_at`, `tttt`) VALUES
-(21, 25, '2019-12-04', 270000, 'COD', 'Giao hàng vô hẻm số 3, Trần Hưng Đạo nha', '2019-12-04 14:06:17', '2019-12-04 09:57:18', 1),
-(20, 24, '2019-12-04', 400000, 'ATM', 'Giao hàng trước 5h chiều ngày 5/12', '2019-12-04 09:35:17', '2019-12-04 09:34:41', 1),
-(19, 21, '2019-12-04', 100000, 'COD', 'Giao hàng trước 5h nha', '2019-12-04 07:53:33', '2019-12-04 07:52:20', 1),
-(18, 24, '2019-12-04', 119000, 'ATM', 'Giao hàng nhanh nha', '2019-12-04 07:30:14', '2019-12-04 07:29:31', 1),
-(22, 26, '2017-12-05', 392000, 'COD', 'Giao hàng sớm nha', '2019-12-05 07:43:12', '2017-12-05 07:38:55', 1),
-(23, 27, '2017-12-05', 531000, 'ATM', 'Giao tại đường số 7 xa lộ nha', '2019-12-05 07:43:19', '2017-12-05 07:41:02', 1),
-(24, 28, '2017-07-19', 324000, 'COD', 'Giao tại hẻm số 5', '2017-07-20 07:53:13', '2017-07-19 07:47:40', 1),
-(25, 28, '2017-08-01', 238000, 'ATM', NULL, '2017-08-02 07:53:51', '2017-08-01 07:48:41', 1),
-(26, 29, '2018-06-20', 392000, 'COD', 'Giao tại cổng chào nha', '2018-06-20 07:52:33', '2018-06-20 07:50:21', 1),
-(27, 24, '2018-06-20', 312000, 'ATM', 'Giao tại địa chỉ 405 - Thuận An - Bình Dương', '2018-06-20 07:52:41', '2018-06-20 07:51:37', 1),
-(28, 30, '2019-12-05', 267000, 'ATM', 'Giao tại đường số 5 đối diện cột đèn giao thông', '2019-12-07 00:58:25', '2019-12-05 08:54:13', 1);
+INSERT INTO `donhang` (`madh`, `makh`, `ngaydat`, `tongtien`, `httt`, `ghichu`, `created_at`, `updated_at`, `tttt`, `diachi`, `sdt`, `hoten`, `shipper`) VALUES
+(21, 25, '2019-12-04', 270000, 'COD', 'Giao hàng vô hẻm số 3, Trần Hưng Đạo nha', '2019-12-04 14:06:17', '2019-12-04 09:57:18', 1, '', '', '', 'Nguyễn Văn A'),
+(20, 24, '2019-12-04', 400000, 'ATM', 'Giao hàng trước 5h chiều ngày 5/12', '2019-12-04 09:35:17', '2019-12-04 09:34:41', 1, '', '', '', 'Nguyễn Văn A'),
+(19, 21, '2019-12-04', 100000, 'COD', 'Giao hàng trước 5h nha', '2019-12-04 07:53:33', '2019-12-04 07:52:20', 1, '', '', '', 'Nguyễn Văn A'),
+(18, 24, '2019-12-04', 84043, 'ATM', 'Giao hàng nhanh nha', '2020-07-04 19:17:27', '2019-12-04 07:29:31', 1, '', '0562243509', 'aaaaa', 'Nguyễn Văn A'),
+(22, 26, '2017-12-05', 392000, 'COD', 'Giao hàng sớm nha', '2019-12-05 07:43:12', '2017-12-05 07:38:55', 1, '', '', '', 'Nguyễn Văn A'),
+(23, 27, '2017-12-05', 531000, 'ATM', 'Giao tại đường số 7 xa lộ nha', '2019-12-05 07:43:19', '2017-12-05 07:41:02', 1, '', '', '', 'Nguyễn Văn A'),
+(24, 28, '2017-07-19', 324000, 'COD', 'Giao tại hẻm số 5', '2017-07-20 07:53:13', '2017-07-19 07:47:40', 1, '', '', '', 'Nguyễn Văn A'),
+(25, 28, '2017-08-01', 238000, 'ATM', NULL, '2017-08-02 07:53:51', '2017-08-01 07:48:41', 1, '', '', '', 'Nguyễn Văn A'),
+(26, 29, '2018-06-20', 1225000, 'COD', 'Giao tại cổng chào nha', '2020-07-04 20:51:53', '2018-06-20 07:50:21', 1, '', '', '', 'Nguyễn Văn A'),
+(27, 24, '2018-06-20', 388000, 'ATM', 'Giao tại địa chỉ 405 - Thuận An - Bình Dương', '2020-07-04 20:51:00', '2018-06-20 07:51:37', 1, '', '', '', 'Nguyễn Văn A'),
+(28, 30, '2019-12-05', 267000, 'ATM', 'Giao tại đường số 5 đối diện cột đèn giao thông', '2019-12-07 00:58:25', '2019-12-05 08:54:13', 1, '', '', '', 'Nguyễn Văn A'),
+(52, 21, '2020-06-29', 74000, 'ATM', NULL, '2020-06-29 12:18:06', '2020-06-29 12:18:06', 0, '', '', '', 'Nguyễn Văn A'),
+(51, 21, '2020-06-22', 283000, 'ATM', 'Gửi cho Nguyên Ngu 2 chiếc sô cô la', '2020-06-22 10:27:50', '2020-06-22 10:27:50', 0, '', '', '', 'Nguyễn Văn A'),
+(50, 21, '2020-06-22', 88000, 'ATM', NULL, '2020-06-22 10:16:35', '2020-06-22 10:16:35', 0, '', '', '', 'Nguyễn Văn A'),
+(49, 21, '2020-06-22', 88000, 'ATM', NULL, '2020-06-22 10:10:33', '2020-06-22 10:10:33', 0, '', '', '', 'Nguyễn Văn A'),
+(48, 21, '2020-06-22', 74000, 'ATM', NULL, '2020-06-22 10:07:29', '2020-06-22 10:07:29', 0, '', '', '', 'Nguyễn Văn A'),
+(47, 21, '2020-06-22', 103000, 'ATM', NULL, '2020-06-22 09:20:46', '2020-06-22 09:20:46', 0, '', '', '', 'Nguyễn Văn A'),
+(46, 21, '2020-06-22', 0, 'ATM', NULL, '2020-06-22 09:17:15', '2020-06-22 09:17:15', 0, '', '', '', 'Nguyễn Văn A'),
+(45, 21, '2020-06-22', 243000, 'ATM', NULL, '2020-06-22 09:16:52', '2020-06-22 09:16:52', 0, '', '', '', 'Nguyễn Văn A'),
+(44, 21, '2020-06-22', 243000, 'ATM', NULL, '2020-06-22 08:37:39', '2020-06-22 08:37:39', 0, '', '', '', 'Nguyễn Văn A'),
+(43, 21, '2020-06-22', 243000, 'ATM', NULL, '2020-06-22 08:35:24', '2020-06-22 08:35:24', 0, '', '', '', 'Nguyễn Văn A'),
+(42, 21, '2020-06-22', 243000, 'ATM', NULL, '2020-06-22 08:30:25', '2020-06-22 08:30:25', 0, '', '', '', 'Nguyễn Văn A'),
+(53, 21, '2020-06-29', 0, 'ATM', NULL, '2020-06-29 12:20:05', '2020-06-29 12:20:05', 0, '', '', '', 'Nguyễn Văn A'),
+(54, 21, '2020-06-29', 84000, 'ATM', NULL, '2020-06-29 12:21:31', '2020-06-29 12:21:31', 0, '', '', '', 'Nguyễn Văn A'),
+(55, 21, '2020-06-29', 45000, 'ATM', NULL, '2020-02-07 10:52:44', '2020-06-29 12:22:15', 3, '23/54 Lê Trọng Tấn', '0562243509', 'Nguyễn Lan Thảo', 'Nguyễn Văn A'),
+(56, 21, '2020-06-30', 143000, 'ATM', NULL, '2020-01-07 10:52:06', '2020-06-30 10:06:08', 2, 'TP-HCM', '0359554019', 'Nguy?n Lan Anh', 'Nguyễn Văn A'),
+(57, 21, '2020-06-30', 94000, 'ATM', NULL, '2020-07-07 10:51:48', '2020-06-30 10:14:08', 2, 'TP-HCM', '12345667', 'Nguy?n Lan Anh', 'Nguyễn Văn A'),
+(58, 21, '2020-06-30', 94000, 'ATM', NULL, '2020-07-06 12:32:50', '2020-06-30 10:28:20', 1, '23/54 Lê Trọng Tấn', '0902216524', 'Nguyễn Lan Anh', 'Nguyễn Văn A'),
+(59, 31, '2020-07-06', 414000, 'ATM', NULL, '2020-07-06 20:44:11', '2020-07-06 10:30:20', 1, '123 Nguyễn Thị Minh Khai, TPHCM, VietNam', '0909090909', 'Nguyễn Lan Thảo', 'Nguyễn Văn A'),
+(60, 31, '2020-07-08', 74000, 'ATM', NULL, '2020-07-08 16:57:31', '2020-07-08 16:47:02', 2, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
+(61, 31, '2020-02-09', 123000, 'ATM', NULL, '2020-07-09 12:20:50', '2020-07-08 17:01:26', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
+(62, 31, '2020-01-09', 103000, 'ATM', NULL, '2020-07-09 12:20:44', '2020-07-08 17:17:05', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
+(63, 31, '2020-07-09', 281000, 'ATM', NULL, '2020-05-09 11:34:55', '2020-07-09 11:34:55', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
+(64, 31, '2020-04-09', 110000, 'ATM', NULL, '2020-07-09 12:20:30', '2020-07-09 11:51:44', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A'),
+(65, 31, '2020-07-09', 29000, 'ATM', NULL, '2020-07-09 12:50:28', '2020-07-09 12:50:28', 0, '123 Nguyễn Thị Minh Khai,    TPHCM, VietNam', '0909090909', 'Lan Thảo', 'Nguyễn Văn A');
 
 -- --------------------------------------------------------
 
@@ -265,30 +359,35 @@ CREATE TABLE `khachhang` (
   `gioitinh` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `diachi` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `tenduong` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '23/54 Cách Mạng Tháng Tám',
+  `country` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Việt Nam',
   `sodt` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `ghichu` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `matk` int(10) DEFAULT NULL
+  `matk` int(10) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `khachhang`
 --
 
-INSERT INTO `khachhang` (`makh`, `hoten`, `gioitinh`, `email`, `diachi`, `sodt`, `ghichu`, `created_at`, `updated_at`, `matk`) VALUES
-(17, 'Nguyễn Văn Chung', 'Nam', 'admin@gmail.com', 'TP-HCM', '0359554019', NULL, '2019-12-05 14:11:38', '2019-11-26 13:34:56', 17),
-(18, 'Trần Anh Tài', 'Nam', 'admin123@gmail.com', 'TP-HCM', '0359554019', NULL, '2019-12-05 14:10:53', '2019-11-26 14:29:36', 18),
-(19, 'Hoàng Minh Trị', 'Nam', 'admin1780@gmail.com', 'TP-HCM', '0359554019', NULL, '2019-12-05 14:11:10', '2019-11-27 01:45:18', 21),
-(21, 'Nguyễn Lan Anh', 'Nam', 'lananh123@gmail.com', 'TP-HCM', '0359554019', NULL, '2019-12-04 07:19:05', '2019-11-28 17:00:18', 22),
-(22, 'Nguyễn Thị Lan Anh', 'Nữ', 'lananh123@gmail.com', 'TP-HCM', '0359554019', NULL, '2019-12-04 07:18:22', '2019-11-28 17:09:47', 23),
-(24, 'Trần Lan Anh', 'Nữ', 'lananh123@gmail.com', 'Bến Cát - Bình Dương', '0359458781', NULL, '2019-12-05 14:12:09', '2019-12-04 07:23:39', 26),
-(25, 'Nguyễn Lan Anh', 'Nam', 'lananh123@gmail.com', 'Quận 4 - TP HCM', '0354879587', NULL, '2019-12-05 14:12:31', '2019-12-04 09:57:18', NULL),
-(26, 'Trần Ngọc Thùy Vân', 'Nữ', 'Thuyvan1999@gmail.com', 'Quận 7 - TP HCM', '0356548751', NULL, '2017-12-05 07:38:55', '2017-12-05 07:38:55', NULL),
-(27, 'Hoàng Thùy Dung', 'Nữ', 'Thuydung@gmail.com', 'Quận 8 - TP HCM', '0359554187', NULL, '2017-12-05 07:41:02', '2017-12-05 07:41:02', NULL),
-(28, 'Lê Anh Quân', 'Nam', 'Anhquan@gmail.com', 'Quận 3 - TP HCM', '0315421548', NULL, '2017-07-19 07:47:40', '2017-07-19 07:47:40', NULL),
-(29, 'Nguyễn Tấn Tài', 'Nam', 'Tantai@gmail.com', 'Dĩ An - Bình Dương', '0359874512', NULL, '2018-06-20 07:50:21', '2018-06-20 07:50:21', NULL),
-(30, 'Trần Hoàng Anh', 'Nam', 'Tranhoanganh@gmail.com', 'Thuận An - Bình Dương', '0712365487', NULL, '2019-12-05 08:54:13', '2019-12-05 08:54:13', NULL);
+INSERT INTO `khachhang` (`makh`, `hoten`, `gioitinh`, `email`, `diachi`, `tenduong`, `country`, `sodt`, `ghichu`, `created_at`, `updated_at`, `matk`) VALUES
+(17, 'Nguyễn Văn Chung', 'Nam', 'admin@gmail.com', 'TP-HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359554019', NULL, '2019-12-05 14:11:38', '2019-11-26 13:34:56', 17),
+(18, 'Trần Anh Tài', 'Nam', 'admin123@gmail.com', 'TP-HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359554019', NULL, '2019-12-05 14:10:53', '2019-11-26 14:29:36', 18),
+(19, 'Hoàng Minh Trị', 'Nam', 'admin1780@gmail.com', 'TP-HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359554019', NULL, '2019-12-05 14:11:10', '2019-11-27 01:45:18', 21),
+(21, 'Nguyễn Lan Anh', 'Nam', 'lanthao2211@gmail.com', 'TP-HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359554019', NULL, '2020-06-22 10:04:26', '2019-11-28 17:00:18', 22),
+(22, 'Nguyễn Thị Lan Anh', 'Nữ', 'lananh123@gmail.com', 'TP-HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359554019', NULL, '2019-12-04 07:18:22', '2019-11-28 17:09:47', 23),
+(24, 'Trần Lan Anh', 'Nữ', 'lananh123@gmail.com', 'Bến Cát - Bình Dương', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359458781', NULL, '2019-12-05 14:12:09', '2019-12-04 07:23:39', 26),
+(25, 'Nguyễn Lan Anh', 'Nam', 'lananh123@gmail.com', 'Quận 4 - TP HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0354879587', NULL, '2019-12-05 14:12:31', '2019-12-04 09:57:18', 0),
+(26, 'Trần Ngọc Thùy Vân', 'Nữ', 'Thuyvan1999@gmail.com', 'Quận 7 - TP HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0356548751', NULL, '2017-12-05 07:38:55', '2017-12-05 07:38:55', 0),
+(27, 'Hoàng Thùy Dung', 'Nữ', 'Thuydung@gmail.com', 'Quận 8 - TP HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359554187', NULL, '2017-12-05 07:41:02', '2017-12-05 07:41:02', 0),
+(28, 'Lê Anh Quân', 'Nam', 'Anhquan@gmail.com', 'Quận 3 - TP HCM', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0315421548', NULL, '2017-07-19 07:47:40', '2017-07-19 07:47:40', 0),
+(29, 'Nguyễn Tấn Tài', 'Nam', 'Tantai@gmail.com', 'Dĩ An - Bình Dương', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0359874512', NULL, '2018-06-20 07:50:21', '2018-06-20 07:50:21', 0),
+(30, 'Trần Hoàng Anh', 'Nam', 'Tranhoanganh@gmail.com', 'Thuận An - Bình Dương', '23/54 Cách Mạng Tháng Tám', 'Việt Nam', '0712365487', NULL, '2019-12-05 08:54:13', '2019-12-05 08:54:13', 0),
+(31, 'Lan Thảo', 'Nu', 'lanthao2211@gmail.com', '   TPHCM', '123 Nguyễn Thị Minh Khai', 'VietNam', '0909090909', NULL, '2020-07-08 16:21:52', '2020-07-05 18:52:19', 29),
+(32, 'Lan Thảo', 'Nu', 'abc@gmail.com', 'abc', 'asf', 'VietNam', '09090909', NULL, '2020-07-06 12:24:46', '2020-07-06 12:24:46', 30),
+(33, 'thảo', 'nữ', 'fas@gmail.com', 'a', 'á', 'VietNam', '09090909', NULL, '2020-07-06 12:26:56', '2020-07-06 12:26:56', 31);
 
 -- --------------------------------------------------------
 
@@ -532,14 +631,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `tentk`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `maquyen`, `ttdn`, `hinhanh`) VALUES
-(1, 'Yuuta', 'admin@gmail.com', '$2y$10$uLvNSU1W6mdobj2NgrxeuOSBTZC2fFMdYphLYmae1Yi9KM1W8Gu9e', NULL, '2019-11-26 13:34:56', '2019-11-26 13:34:56', 2, 0, NULL),
 (18, 'Yuuta', 'admin123@gmail.com', '$2y$10$Uu6QkXJ8pBHJsA.0MuBs5eHcARFyxjlvMN87cfcPG2RaBP3Gi553m', NULL, '2019-11-26 14:29:36', '2019-11-26 14:29:36', 2, 0, NULL),
 (21, 'Yuuta', 'admin1780@gmail.com', '$2y$10$Hfb666GFeByGWp7AProKi.XZqiMsJ5H5TcotQo9h3rwmUTsmy6gl6', NULL, '2019-11-27 01:45:18', '2019-11-27 01:45:18', 2, 0, NULL),
-(22, 'Lan Anh', 'quoctuan1780@gmail.com', '$2y$10$jCuFxQRFYNjJq1H8.cmGy.CeoYlNIXPYY28TX0sZ4j5QoXyy3fExm', NULL, '2019-11-28 17:00:18', '2019-11-28 17:00:18', 1, 0, 'Yuuta.jpg'),
+(22, 'Lan Anh', 'quoctuan1780@gmail.com', '$2y$10$jCuFxQRFYNjJq1H8.cmGy.CeoYlNIXPYY28TX0sZ4j5QoXyy3fExm', NULL, '2019-11-28 17:00:18', '2019-11-28 17:00:18', 2, 0, 'Yuuta.jpg'),
 (23, 'Yuuta', 'quoctuanlyoko@gmail.com', '$2y$10$y6qbjdlpxodZ8FWfyh1H7ORv5i0EP6UaKX/ZfBisdMn8jUJpkKjNe', NULL, '2019-11-28 17:09:47', '2019-11-28 17:09:47', 2, 0, NULL),
-(24, 'Thanh', 'admin1999@gmail.com', '$2y$10$kRWJAudVVGL2tYO/gTwDmOCICjw5zdfbo3yw20iiSlYtkIFPE.2T.', NULL, '2019-12-01 14:09:46', '2019-12-01 14:09:46', 1, 0, NULL),
 (26, 'Kanade', 'Yuuta1780@gmail.com', '$2y$10$PwU/GLD3CjTWzAMzlrFSuecv4Iyh8a40J2.RU5zSW0itLYrz/F5vK', NULL, '2019-12-04 07:23:39', '2019-12-04 07:23:39', 2, 1, NULL),
-(27, 'Tường Vy', 'Tuongvy@gmail.com', '$2y$10$lbIp2hC2B9Rm9QAyqB2f6uB6/FK.DKTYEzzOs7o2TlTKWbmKbUJxG', NULL, '2019-12-05 07:58:31', '2019-12-05 07:58:31', 3, 0, 'Alita-Battle-Angel-17.jpg');
+(27, 'Tường Vy', 'Tuongvy@gmail.com', '$2y$10$lbIp2hC2B9Rm9QAyqB2f6uB6/FK.DKTYEzzOs7o2TlTKWbmKbUJxG', NULL, '2019-12-05 07:58:31', '2019-12-05 07:58:31', 3, 0, 'Alita-Battle-Angel-17.jpg'),
+(29, 'lanthao', 'lanthao2211@gmail.com', '25d55ad283aa400af464c76d713c07ad', NULL, '2020-07-05 18:52:19', '2020-07-05 18:52:19', 2, 0, NULL),
+(30, 'test', 'abc@gmail.com', '25d55ad283aa400af464c76d713c07ad', NULL, '2020-07-06 12:24:46', '2020-07-06 12:24:46', 2, 0, NULL),
+(31, 'test2', 'fas@gmail.com', '25d55ad283aa400af464c76d713c07ad', NULL, '2020-07-06 12:26:56', '2020-07-06 12:26:56', 1, 0, NULL);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -672,13 +772,13 @@ ALTER TABLE `activations`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cartid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `cartid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT cho bảng `ctdh`
 --
 ALTER TABLE `ctdh`
-  MODIFY `ma_ctdh` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `ma_ctdh` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT cho bảng `cthd`
@@ -696,7 +796,7 @@ ALTER TABLE `dknt`
 -- AUTO_INCREMENT cho bảng `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `madh` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `madh` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT cho bảng `hoadon`
@@ -708,7 +808,7 @@ ALTER TABLE `hoadon`
 -- AUTO_INCREMENT cho bảng `khachhang`
 --
 ALTER TABLE `khachhang`
-  MODIFY `makh` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `makh` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT cho bảng `loaisanpham`
@@ -738,7 +838,7 @@ ALTER TABLE `reminders`
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `masp` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `masp` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT cho bảng `slide`
@@ -750,7 +850,7 @@ ALTER TABLE `slide`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

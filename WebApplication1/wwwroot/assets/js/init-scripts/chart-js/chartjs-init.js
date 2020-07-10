@@ -1,17 +1,171 @@
+
 ( function ( $ ) {
     "use strict";
 
     //Team chart
     var ctx = document.getElementById( "team-chart" );
     ctx.height = 150;
-    var myChart = new Chart( ctx, {
+    var OrderChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    type: 'line',
+                    defaultFontFamily: 'Montserrat',
+                    datasets: [{
+                        data: [],
+                        label: "Expense",
+                        backgroundColor: 'rgba(0,103,255,.15)',
+                        borderColor: 'rgba(0,103,255,0.5)',
+                        borderWidth: 3.5,
+                        pointStyle: 'circle',
+                        pointRadius: 5,
+                        pointBorderColor: 'transparent',
+                        pointBackgroundColor: 'rgba(0,103,255,0.5)',
+                    },]
+                },
+                options: {
+                    responsive: true,
+                    tooltips: {
+                        mode: 'index',
+                        titleFontSize: 12,
+                        titleFontColor: '#000',
+                        bodyFontColor: '#000',
+                        backgroundColor: '#fff',
+                        titleFontFamily: 'Montserrat',
+                        bodyFontFamily: 'Montserrat',
+                        cornerRadius: 3,
+                        intersect: false,
+                    },
+                    legend: {
+                        display: false,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            fontFamily: 'Montserrat',
+                        },
+
+
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Years'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Value'
+                            }
+                        }]
+                    },
+                    title: {
+                        display: false,
+                    }
+                }
+            });
+/*Chart*/
+
+    $.post("../Admin/OrderChart",
+        function (data) {
+            OrderChart.data.labels.pop();
+            OrderChart.data.datasets.forEach((dataset) => {
+                dataset.data.pop();
+            });
+            OrderChart.update();
+
+            var years = data.years;
+            var datas = data.data;
+            setTimeout(function () {
+                OrderChart.data.labels = years;
+                addData(OrderChart, datas, 0);
+            }, 1000);
+            updateConfigAsNewObject(OrderChart);
+            OrderChart.update();
+        });
+    function updateConfigAsNewObject(chart) {
+        chart.options = {
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                titleFontSize: 12,
+                titleFontColor: '#000',
+                bodyFontColor: '#000',
+                backgroundColor: '#fff',
+                titleFontFamily: 'Montserrat',
+                bodyFontFamily: 'Montserrat',
+                cornerRadius: 3,
+                intersect: false,
+            },
+            legend: {
+                display: false,
+                position: 'top',
+                labels: {
+                    usePointStyle: true,
+                    fontFamily: 'Montserrat',
+                },
+
+
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    scaleLabel: {
+                        display: false,
+                        labelString: 'Years'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        };
+    }
+    function addData(chart, data, datasetIndex) {
+        chart.data.datasets[datasetIndex].data = data;
+        chart.update();
+    }
+    function removeData(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
+    }
+    //Count order chart
+    var ctx = document.getElementById("count-chart");
+    ctx.height = 150;
+    var CountChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [ "2010", "2011", "2012", "2013", "2014", "2015", "2016" ],
+            labels: [],
             type: 'line',
             defaultFontFamily: 'Montserrat',
-            datasets: [ {
-                data: [ 0, 7, 3, 5, 2, 10, 7 ],
+            datasets: [{
+                data: [],
                 label: "Expense",
                 backgroundColor: 'rgba(0,103,255,.15)',
                 borderColor: 'rgba(0,103,255,0.5)',
@@ -20,7 +174,7 @@
                 pointRadius: 5,
                 pointBorderColor: 'transparent',
                 pointBackgroundColor: 'rgba(0,103,255,0.5)',
-                    }, ]
+            },]
         },
         options: {
             responsive: true,
@@ -46,7 +200,7 @@
 
             },
             scales: {
-                xAxes: [ {
+                xAxes: [{
                     display: true,
                     gridLines: {
                         display: false,
@@ -56,8 +210,8 @@
                         display: false,
                         labelString: 'Month'
                     }
-                        } ],
-                yAxes: [ {
+                }],
+                yAxes: [{
                     display: true,
                     gridLines: {
                         display: false,
@@ -67,15 +221,23 @@
                         display: true,
                         labelString: 'Value'
                     }
-                        } ]
+                }]
             },
             title: {
                 display: false,
             }
         }
-    } );
-
-
+    });
+    $.post("../Admin/OrderCountChart",
+        function (data) {
+            var years = data.years;
+            var datas = data.data;
+            setTimeout(function () {
+                CountChart.data.labels = years;
+                addData(CountChart, datas, 0);
+            }, 1000);
+            CountChart.update();
+        });
     //Sales chart
     var ctx = document.getElementById( "sales-chart" );
     ctx.height = 150;
@@ -160,11 +322,6 @@
     } );
 
 
-
-
-
-
-
     //line chart
     var ctx = document.getElementById( "lineChart" );
     ctx.height = 150;
@@ -208,24 +365,17 @@
     //bar chart
     var ctx = document.getElementById( "barChart" );
     //    ctx.height = 200;
-    var myChart = new Chart( ctx, {
+    var ProductChart = new Chart( ctx, {
         type: 'bar',
         data: {
-            labels: [ "January", "February", "March", "April", "May", "June", "July" ],
+            labels: [],
             datasets: [
                 {
                     label: "My First dataset",
-                    data: [ 65, 59, 80, 81, 56, 55, 40 ],
+                    data: [],
                     borderColor: "rgba(0, 123, 255, 0.9)",
                     borderWidth: "0",
                     backgroundColor: "rgba(0, 123, 255, 0.5)"
-                            },
-                {
-                    label: "My Second dataset",
-                    data: [ 28, 48, 40, 19, 86, 27, 90 ],
-                    borderColor: "rgba(0,0,0,0.09)",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(0,0,0,0.07)"
                             }
                         ]
         },
@@ -239,7 +389,16 @@
             }
         }
     } );
-
+    $.post("../Admin/ProductChart",
+        function (data) {
+            var sp = data.sp;
+            var datas = data.data;
+            setTimeout(function () {
+                ProductChart.data.labels = sp;
+                addData(ProductChart, datas, 0);
+            }, 1000);
+            ProductChart.update();
+        });
     //radar chart
     var ctx = document.getElementById( "radarChart" );
     ctx.height = 160;

@@ -23,6 +23,7 @@ namespace WebApplication1.Others
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+
             optionsBuilder.UseMySQL(connectionString);
 
         }
@@ -48,6 +49,7 @@ namespace WebApplication1.Others
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<CartDetail>(entity => {
                 entity.ToTable("cartdetail");
                 entity.HasKey(c => new { c.CartId, c.Masp});
@@ -199,6 +201,19 @@ namespace WebApplication1.Others
                     .HasColumnName("ghichu")
                     .HasColumnType("varchar(500)");
 
+                entity.Property(e => e.Hoten)
+                    .HasColumnName("hoten")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Shipper)
+                    .HasColumnName("shipper")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.Diachi)
+                    .HasColumnName("diachi")
+                    .HasColumnType("varchar(200)");
+
+
                 entity.Property(e => e.Httt)
                     .HasColumnName("httt")
                     .HasColumnType("varchar(200)");
@@ -298,6 +313,7 @@ namespace WebApplication1.Others
                 entity.Property(e => e.Hoten)
                     .IsRequired()
                     .HasColumnName("hoten")
+                    .IsUnicode(true)
                     .HasColumnType("varchar(100)");
 
                 entity.Property(e => e.Matk)
@@ -468,7 +484,9 @@ namespace WebApplication1.Others
                 entity.ToTable("sanpham");
 
                 entity.Property(e => e.Masp).HasColumnName("masp");
-
+                entity.Property(e => e.Tt)
+                    .HasColumnName("tt")
+                    .HasDefaultValueSql("'0'");
                 entity.Property(e => e.CreatedAt)
                     .HasColumnName("created_at")
                     .HasColumnType("timestamp")

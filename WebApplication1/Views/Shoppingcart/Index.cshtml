@@ -4,6 +4,7 @@
     var items = ViewData["items"] as List<Sanpham>;
     var cart = ViewData["cart"] as Cart;
     var cds = ViewData["cartdetails"] as List<CartDetail>;
+    var a =  ViewData["isSignin"];
 }
 
 <section class="breadcrumb-section set-bg" data-setbg="../img/breadcrumb.jpg">
@@ -11,10 +12,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Shopping Cart</h2>
+                    <h2>Giỏ hàng</h2>
                     <div class="breadcrumb__option">
-                        <a href="../index.html">Home</a>
-                        <span>Shopping Cart</span>
+                        <a href="../index.html">Trang chủ</a>
+                        <span>Giỏ hảng</span>
                     </div>
                 </div>
             </div>
@@ -72,93 +73,114 @@
 </section>
 <!-- Breadcrumb Section End -->
 <!-- Shoping Cart Section Begin -->
-<section class="shoping-cart spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="shoping__cart__table">
-                    <table>
-                        @if (items == null || items.Count < 1)
-                        {
-                            <h3>Giỏ hàng trống</h3>
-                        }
-                        else
-                        {
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in items)
-                                {
-                                    var total = item.Gia * cds.Find(p => p.Masp == item.Masp).Quantity;
-                                    <tr class="item-in-cart">
-                                        <td class="shoping__cart__item">
-                                            <img src="../img/product/@item.Hinhanh" alt="" style="max-width: 20%">
-                                            <h5>@item.Tensp</h5>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            @item.Gia
-                                        </td>
-                                        <td class="shoping__cart__quantity">
-                                            <div class="quantity">
-                                                <div class="pro-qty pro-qty-add" data-id="@item.Masp">
-                                                    <input type="text" value="@cds.Find(p => p.Masp == item.Masp).Quantity">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="shoping__cart__total">
-                                            @total
-                                        </td>
-                                        <td class="shoping__cart__item__close" data-id="@item.Masp">
-                                            <span class="icon_close"></span>
-                                        </td>
+@if (a != null)
+{
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            @if (items == null || items.Count < 1)
+                            {
+                                <h3>Giỏ hàng trống</h3>
+                            }
+                            else
+                            {
+                                <thead>
+                                    <tr>
+                                        <th class="shoping__product">Sản phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Tổng tiền</th>
+                                        <th></th>
                                     </tr>
-                                }
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in items)
+                                    {
+                                        var total = item.Gia * cds.Find(p => p.Masp == item.Masp).Quantity;
+                                        <tr class="item-in-cart">
+                                            <td class="shoping__cart__item">
+                                                <img src="../img/product/@item.Hinhanh" alt="" style="max-width: 20%">
+                                                <h5>@item.Tensp</h5>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                @item.Gia
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                    <div class="pro-qty pro-qty-add" data-id="@item.Masp">
+                                                        <input type="text" value="@cds.Find(p => p.Masp == item.Masp).Quantity">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                @total
+                                            </td>
+                                            <td class="shoping__cart__item__close" data-id="@item.Masp">
+                                                <span class="icon_close"></span>
+                                            </td>
+                                        </tr>
+                                    }
 
-                            </tbody>
-                        }
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="shoping__cart__btns">
-                    <a asp-controller="Home" asp-action="Index" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                    <a href="#" class="primary-btn cart-btn cart-btn-right">
-                        <span class="icon_loading"></span>
-                        Upadate Cart
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="shoping__continue">
-                    <div class="shoping__discount">
-                        <h5>Discount Codes</h5>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your coupon code">
-                            <button type="submit" class="site-btn">APPLY COUPON</button>
-                        </form>
+                                </tbody>
+                            }
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="shoping__checkout">
-                    <h5>Cart Total</h5>
-                    <ul>
-                        <li class="subtotal-cart">Subtotal <span>@cart.Total</span></li>
-                        <li class="total-cart">Total <span>@cart.Total</span></li>
-                    </ul>
-                    <a asp-controller="CheckOut" asp-action="Index" class="primary-btn">PROCEED TO CHECKOUT</a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a asp-controller="Home" asp-action="Index" class="primary-btn cart-btn">TIẾP TỤC MUA HÀNG</a>
+                        <a href="#" class="primary-btn cart-btn cart-btn-right">
+                            <span class="icon_loading"></span>
+                           Cập nhật giỏ hàng
+                        </a>
+                    </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="shoping__continue">
+                        <div class="shoping__discount">
+                            <h5>Mã giảm giá</h5>
+                            <form action="#">
+                                <input type="text" placeholder="Nhập mã giảm giá của bạn">
+                                <button type="submit" class="site-btn">Áp dụng mã giảm giá</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @if (!(items == null || items.Count < 1))
+                {
+                    <div class="col-lg-6">
+                        <div class="shoping__checkout">
+                            <h5>Tổng tiền</h5>
+                            <ul>
+                                <li class="subtotal-cart">Tổng phụ <span>@cart.Total</span></li>
+                                <li class="total-cart">Tổng tiền thanh toán <span>@cart.Total</span></li>
+                            </ul>
+                            <a asp-controller="CheckOut" asp-action="Index" class="primary-btn">Tiến hành thanh toán</a>
+                        </div>
+                    </div>
+                }
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+else
+{
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <h3>Bạn chưa đăng nhập để sử dụng giỏ hàng</h3>
+                
+                <a asp-action="DangNhap" asp-controller="DangNhap">
+                    <button class="btn btn-outline-success">Đăng nhập tại đây</button>
+                </a>
+             </div>
+            </div>
+        </section>
+        }
 

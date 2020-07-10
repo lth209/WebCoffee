@@ -1,0 +1,200 @@
+﻿@model Donhang
+@{
+    ViewData["Title"] = "CustomerManager";
+    List<Ctdh> ods = ViewData["ods"] as List<Ctdh>;
+    List<Sanpham> products = ViewData["products"] as List<Sanpham>;
+    Donhang order = ViewData["order"] as Donhang;
+    Khachhang cus = ViewData["cus"] as Khachhang;
+
+}
+
+<!-- Header-->
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="../#">Dashboard</a></li>
+                    <li><a href="../#">Table</a></li>
+                    <li class="active">Data table</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-6 card p-2">
+                @if (!String.IsNullOrEmpty(order.Hoten))
+                {
+                    <span>Tên người nhận: @order.Hoten</span><br>
+                    <span>Số điện thoại: @order.Sdt</span><br>
+                    <span>Địa chỉ: @order.Diachi</span><br>
+                    <span>Shipper: @order.Shipper</span>
+                }
+                else
+                {
+                    <span>Tên người nhận: @cus.Hoten</span><br>
+                    <span>Số điện thoại: @cus.Sodt</span><br>
+                    <span>Địa chỉ: @cus.Tenduong, @cus.Diachi</span><br>
+                    <span>Shipper: @order.Shipper</span>
+                }
+
+            </div>
+            <div class="col-md-6 card p-2">
+                <span>Thời gian đặt hàng: @order.Ngaydat</span><br>
+                <span>Phương thức thanh toán: thanh toán khi nhận hàng</span><br>
+                <button class="btn btn-outline-success btn-edit-od">Edit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-editable">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tên món</th>
+                            <th scope="col" >Số lượng</th>
+                            <th scope="col">Tổng</th>
+                            <th scope="col"><button class="btn btn-success btn-add-od">Add</button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            int i = 0;
+                            foreach (var od in ods)
+                            {
+                                i++;
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td>@products.Find(p => p.Masp == od.Masp).Tensp</td>
+                                    <td contenteditable='true'>@od.Soluong</td>
+                                    <td contenteditable='true'>@od.Gia</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-remove" data-id="@od.MaCtdh"> Remove </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="shoping__checkout">
+            <h5>Cart Total</h5>
+            <ul>
+                <li>Subtotal <span>$454.98</span></li>
+                <li>Total <span>$454.98</span></li>
+            </ul>
+            <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+        </div>
+        
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+<div class="modal fade" id="OrderDetailModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <form asp-controller="Admin" asp-action="AddOrderDetail" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm món</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Madh"/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Tên món: </span>
+                            <select name="product" id="select" class="form-control">
+                                <option value="0">Please select</option>
+                                @foreach (var product in products)
+                                {
+                                    <option value="@product.Masp">@product.Tensp</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <span>Số lượng: </span><br>
+                            <div class="product__details__quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty-not-add pro-qty ">
+                                        <input name="quantity" type="text" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer row">
+                    <button type="submit" class="btn btn-success col-sm-3 pl-3">Thêm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--Modal edit order-->
+<div class="modal fade" id="OrderModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <form class="needs-validation" asp-controller="Admin" asp-action="EditOrder" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh sửa</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" name="id" value="@Model.Madh" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span>Tên người nhận: </span><br />
+                            <input class="form-control" name="hoten" value="@order.Hoten" required>
+                            <span>Số điện thoại: </span><br />
+                            <input class="form-control" name="sdt" value="@order.Sdt" required><br />
+                        </div>
+                        <div class="col-md-6">
+                            <span>Địa chỉ: </span><br>
+                            <input class="form-control" name="diachi" value="@order.Diachi" required><br />
+                            <span>Shipper: </span>
+                            <input class="form-control" name="shipper" value="@order.Shipper" required><br />
+                        </div>
+                        <div class="col-md-6">
+                            <span>Tình trạng: </span><br>
+                                <select name="tt" class="form-control">
+                                    <option value="1">Đã hoàn thành</option>
+                                    <option value="0">Đang xử lý</option>
+                                    <option value="2">Đang chuẩn bị</option>
+                                    <option value="3">Đang giao hàng</option>
+                                    <option value="4">Đã hủy</option>
+                                </select><br />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer row">
+                    <button type="submit" class="btn btn-success col-sm-3 pl-3">Cập nhật</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
