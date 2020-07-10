@@ -40,12 +40,14 @@
                     <span>Tên người nhận: @order.Hoten</span><br>
                     <span>Số điện thoại: @order.Sdt</span><br>
                     <span>Địa chỉ: @order.Diachi</span><br>
+                    <span>Shipper: @order.Shipper</span>
                 }
                 else
                 {
                     <span>Tên người nhận: @cus.Hoten</span><br>
                     <span>Số điện thoại: @cus.Sodt</span><br>
                     <span>Địa chỉ: @cus.Tenduong, @cus.Diachi</span><br>
+                    <span>Shipper: @order.Shipper</span>
                 }
 
             </div>
@@ -172,6 +174,8 @@
                         <div class="col-md-6">
                             <span>Địa chỉ: </span><br>
                             <input class="form-control" name="diachi" value="@order.Diachi" required><br />
+                            <span>Shipper: </span>
+                            <input class="form-control" name="shipper" value="@order.Shipper" required><br />
                         </div>
                         <div class="col-md-6">
                             <span>Tình trạng: </span><br>

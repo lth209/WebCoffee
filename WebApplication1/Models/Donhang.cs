@@ -19,6 +19,7 @@ namespace WebApplication1.Models
         [Key]
         public int Madh { get; set; }
         public int Makh { get; set; }
+        public string Shipper { get; set; }
         public string Sdt { get; set; }
         public string Diachi { get; set; }
         public string Hoten { get; set; }

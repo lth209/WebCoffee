@@ -123,7 +123,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditOrder(int id, String hoten, String sdt, String diachi, int tt)
+        public IActionResult EditOrder(int id, String hoten, String sdt, String diachi, int tt, String shipper)
         {
             if (!CheckRole())
             {
@@ -138,6 +138,7 @@ namespace WebApplication1.Controllers
                 var o = context.Donhang.Where(p => p.Madh == id).Single();
                 o.Hoten = hoten;
                 o.Sdt = sdt;
+                o.Shipper = shipper;
                 o.Diachi = diachi;
                 o.Tttt = tt;
                 context.SaveChanges();

@@ -205,6 +205,10 @@ namespace WebApplication1.Others
                     .HasColumnName("hoten")
                     .HasColumnType("varchar(50)");
 
+                entity.Property(e => e.Shipper)
+                    .HasColumnName("shipper")
+                    .HasColumnType("varchar(50)");
+
                 entity.Property(e => e.Diachi)
                     .HasColumnName("diachi")
                     .HasColumnType("varchar(200)");
