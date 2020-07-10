@@ -1,0 +1,40 @@
+﻿.success {
+    color: red;
+    font-size: 12;
+}
+
+.parent {
+    margin-top: 30px;
+}
+
+    .parent h2 {
+        color: red;
+    }
+
+label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.btn-submit {
+    padding: 8px 25px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 50px;
+    background-color: #07ce5a;
+    color: #FFF;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+    .btn-submit:hover {
+        background-color: #05ec4b;
+    }
+
+.icon {
+    position: relative;
+    left: -115px;
+    color: #FFF;
+    font-weight: 500;
+    font-size: 18px;
+}

@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@{ Layout = "_AdminLayout"; }
+@model WebApplication1.Models.Sanpham;
+<link href="~/css/styleSuaSanPham.css" rel="stylesheet" />
+
+<div class="container parent">
+    <div class="mb-4">
+        <h2><i class="far fa-edit"></i> Thông tin sản phẩm</h2>
+    </div>
+    <form asp-action="suasanpham" asp-controller="sanpham" method="POST">
+        @foreach (var item in ViewBag.sanpham as List<Sanpham>)
+        {<input name="SanPhamId" value="@Html.DisplayFor(modelitem => item.Masp)" hidden />
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="TenSanPham">1. Tên sản phẩm</label>
+                    <input type="text" class="form-control" id="TenSanPham" name="Tensp" value="@Html.DisplayFor(itemModel => item.Tensp)" autocomplete="off" placeholder="Nhập tên sản phẩm" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="GiaBanLe">2. Giá bán</label>
+                    <input type="number" class="form-control" id="GiaBanLe" name="Gia" value="@Html.DisplayFor(itemModel => item.Gia)" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Mota">3. Mô tả</label>
+                <input type="text" class="form-control w-100" id="Mota" placeholder="Nhập mô tả" name="Mota" value="@Html.DisplayFor(itemModel => item.Mota)" autocomplete="off">
+            </div>
+
+
+            <div class="hinhAnh">
+                <div class="row">
+                    @foreach (var item5 in ViewBag.Hinhanh as List<Sanpham>)
+                    {
+                        <div class="col-md-3 inputImg">
+                            <label for="TenAnh">7. Hình ảnh</label>
+                            <input type="file" name="Hinhanh" id="Hinhanh" value="@Html.DisplayFor(itemmodel => item5.Hinhanh)" required>
+                        </div>
+                        <div class="col-md-6 ml-5">
+                            <label for="">Ảnh sản phẩm</label>
+                            <div class="anh border">
+                                <img src="~/img/@Html.DisplayFor(itemmodel => item5.Hinhanh)" alt="">
+                            </div>
+                        </div>}
+                </div>
+            </div>
+
+
+            @if (ViewBag.success != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.success
+                </div>}
+            @if (ViewBag.error != null)
+            {
+                <div class="alert alert-alert" role="alert">
+                    @ViewBag.error
+                </div>}
+            <input type="submit" value="&nbsp;Cập nhật" id="submit" class="btn-submit">
+            <i class="far fa-pencil-alt icon"></i>}
+    </form>
+</div>

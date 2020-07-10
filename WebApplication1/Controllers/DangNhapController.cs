@@ -38,7 +38,13 @@ namespace WebApplication1.Controllers
                     if (item.Tentk == name && item.Password == password && item.Maquyen == 1)
                     {
                         HttpContext.Response.Cookies.Append("user_id", item.Id.ToString());
+<<<<<<< Updated upstream
                         return Redirect("~/");
+=======
+                        HttpContext.Session.SetString("Tentk", model.Tentk);
+                        return RedirectToAction("Index", "Home");
+                        //return RedirectToAction("xacnhandathang", "sanpham");
+>>>>>>> Stashed changes
                     }
                     if (item.Tentk == name && item.Password == password && item.Maquyen == 2)
                     {

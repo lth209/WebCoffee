@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "DanhSachKhachHang";
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{ Layout = "_AdminLayout"; }
+<link rel="stylesheet" href="~/css/styleDanhSachKhachHang.css">
+
+<div class="table1 container">
+    <table id="verticalScroll" class="table table-sm table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Họ tên</th>
+                <th scope="col">Email</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Khachhang as List<Khachhang>)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Hoten)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sodt)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Diachi)</td>
+                    <td class='text-center'><a href="/khachhang/suakhachhang/@Html.DisplayFor(modelItem => item.Makh)">@*<i class="fas fa-user-edit"></i>*@ Sửa</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

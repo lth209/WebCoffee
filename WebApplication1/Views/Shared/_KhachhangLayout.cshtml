@@ -1,7 +1,11 @@
 ﻿
 @{
-    ViewData["Title"] = "_AdminLayout";
+    ViewData["Title"] = "_KhachhangLayout";
 }
+
+
+
+
 
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -43,7 +47,6 @@
 
 
     <!-- Left Panel -->
-
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
 
@@ -61,60 +64,14 @@
                         <a asp-action="Index" asp-controller="Admin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
 
-                    <h3 class="menu-title">Quản lý đơn hàng</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="../#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Đơn hàng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="../tables-basic.html">Biểu đồ thống kê</a></li>
-                            <li><i class="fa fa-table"></i><a href="../tables-data.html">Thêm, xóa, sửa</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="../#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Đơn hàng đã hoàn thành</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="../tables-basic.html">Biểu đồ thống kê</a></li>
-                            <li><i class="fa fa-table"></i><a href="../tables-data.html">Thêm, xóa, sửa</a></li>
-                        </ul>
-                    </li>
-
-                    <h3 class="menu-title">Quản lý sản phẩm</h3><!-- /.menu-title -->
-                    <!--Quản lý sản phẩm thêm xóa sửa-->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Sản phẩm</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="../tables-data.html">Biểu đồ thống kê</a></li>
-                            <li><i class="fa fa-table"></i><a asp-action="ProductManager" asp-controller="Admin">Thêm, xóa, sửa</a></li>
-                        </ul>
-                    </li>
-
-                    <h3 class="menu-title">Ql khách hàng / tài khoản</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Khách hàng</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="../tables-basic.html">Biểu đồ thống kê</a></li>
-                            <li><i class="fa fa-table"></i><a asp-action="CustomerManager" asp-controller="Admin">Thêm, xóa, sửa</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="../#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Tài khoản</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="../tables-basic.html">Biểu đồ thống kê</a></li>
-                            <li><i class="fa fa-table"></i><a asp-action="AccountManager" asp-controller="Admin">Thêm, xóa, sửa</a></li>
-                        </ul>
-                    </li>
-
-
-
-
-                    <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="../#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="../page-login.html">Login</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="../page-register.html">Register</a></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="../pages-forget.html">Forget Pass</a></li>
-                        </ul>
-                    </li>
+                    <aside id="left-panel" class="left-panel">
+                        <nav class="navbar navbar-expand-sm navbar-default">
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#"> <i class="menu-icon fa fa-table"></i>Tài Khoản</a>
+                            </li>
+                            <li class="menu-item-has-children dropdown">
+                                <a href="#"> <i class="menu-icon fa fa-th"></i>Đơn Hàng</a>
+                            </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -301,4 +258,5 @@
 </body>
 
 </html>
+
 

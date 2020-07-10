@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "KhachHang";
+    Khachhang kh = ViewData["kh"] as Khachhang;
+    Layout = "_KhachhangLayout";
+}
+
+
+
+<link rel="stylesheet" href="~/css/styleSuaKhachHang.css">
+<div class="container mb-5 parent">
+    <div class="mb-4">
+        <h2><i class="far fa-edit"></i> Thông tin khách hàng</h2>
+    </div>
+    <form asp-controller="KhachHang" asp-action="KhachHang" method="POST">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="HoTen">1. Họ tên</label>
+                <input type="text" class="form-control" id="HoTen" placeholder="Nhập họ tên" name="Hoten" value="@kh.Hoten" autocomplete="off" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Email">2. Email</label>
+                <input type="email" class="form-control" id="Email" placeholder="Nhập Email" name="Email" value= "@kh.Email" autocomplete="off" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="DiaChi">3. Địa chỉ</label>
+            <input type="text" class="form-control w-100" id="DiaChi" placeholder="Nhập địa chỉ" name="Diachi" value=" @kh.Diachi" autocomplete="off" required>
+        </div>
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="Sdt">5. Số điện thoại</label>
+                <input type="text" class="form-control" id="Sdt" name="Sodt" value="@kh.Sodt" autocomplete="off" required>
+            </div>
+        </div>
+        <input type="submit" class="btn-submit" value="&nbsp; Cập nhật">
+        <i class="far fa-pencil-alt icon"></i>
+    </form>
+</div>

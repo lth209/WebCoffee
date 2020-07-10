@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "DonHang";
+    Donhang dh = ViewData["dh"] as Donhang;
+}
+
+@{ Layout = "_KhachhangLayout"; }
+<link rel="stylesheet" href="../css/styleDanhSachKhachHang.css">
+
+<div class="table1 container">
+    <table id="verticalScroll" class="table table-sm table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Mã Đơn Hàng</th>
+                <th scope="col">Ngày Đặt</th>
+                <th scope="col">Tổng Tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            <th scope="col">@dh.Madh.</th>
+            <th scope="col">@dh.Ngaydat.</th>
+            <th scope="col">@dh.Tongtien.</th>
+
+            </tbody>
+        </table>
+</div>
+
+
+

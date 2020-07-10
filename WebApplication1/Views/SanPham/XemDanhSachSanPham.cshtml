@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{ Layout = "_AdminLayout"; }
+<link rel="stylesheet" href="~/css/styleXemDanhSachSanPham.css">
+
+<div class="table1 container">
+    <a href="/SanPham/ThemSanPham"><button type="button" class="btn btn-primary btn-add">Thêm sản phẩm</button></a>
+    <table id="verticalScroll" class="table table-sm table-bordered table-striped table-hover w-100">
+        <thead>
+            <tr>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Gía km</th>
+                <th scope="col">Dvt</th>
+                <th scope="col">Moi</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.sanpham as List<Sanpham>)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Tensp)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Mota)</td>
+                    <td class="giabanle">@Html.DisplayFor(modelItem => item.Gia)</td>
+                    <td class="trangthai">@Html.DisplayFor(modelItem => item.Giakm)</td>
+                    <td class="trangthai">@Html.DisplayFor(modelItem => item.Dvt)</td>
+                    <td class="trangthai">@Html.DisplayFor(modelItem => item.Moi)</td>
+                    @*<td>@Html.DisplayFor(modelItem => item.Dvt.TenLoai)</td>*@
+                    @*<td>@Html.DisplayFor(modelItem => item.KhuyenMai.PhanTramGiam)</td>*@
+                    <td><div class="containImg"><img src="~/img/@Html.DisplayFor(modelItem => item.Hinhanh)" alt=""></div></td>
+                    <td class="text-center"><a href="/sanpham/suasanpham/@Html.DisplayFor(modelItem => item.Masp)">@*<i class="fad fa-edit"></i>*@ Sửa</a></td>
+                </tr>
+}
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#verticalScroll').DataTable({
+            "scrollY": "430px",
+            "scrollCollapse": true,
+            "columnDefs": [
+                { "width": "15%", "targets": 0 },
+                { "width": "30%", "targets": 1 }
+            ]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });</script>
