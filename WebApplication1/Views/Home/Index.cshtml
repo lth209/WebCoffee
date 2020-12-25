@@ -5,6 +5,7 @@
     var products = ViewData["product"] as List<Sanpham>;
     var productTypes = ViewData["producttypes"] as List<Loaisanpham>;
     var bestsellers = ViewData["bestsellers"] as List<Sanpham>;
+    
     String getTenLoai(int maloai)
     {
         switch (maloai)
@@ -36,11 +37,11 @@
                     <div class="hero__search__form">
                         <form action="#">
                             <div class="hero__search__categories">
-                                All Categories
+                                Danh mục sản phẩm
                                 <span class="arrow_carrot-down"></span>
                             </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
+                            <input type="text" placeholder="Bạn cần gì?">
+                            <button type="submit" class="site-btn">Tìm kiếm</button>
                         </form>
                     </div>
                     <div class="hero__search__phone">
@@ -48,17 +49,17 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
-                            <span>support 24/7 time</span>
+                            <h5>0345.770.122</h5>
+                            <span>Hỗ trợ 24/7</span>
                         </div>
                     </div>
                 </div>
                 <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
                     <div class="hero__text">
-                        <span>FRUIT FRESH</span>
-                        <h2>Vegetable <br />100% Organic</h2>
-                        <p>Free Pickup and Delivery Available</p>
-                        <a href="#" class="primary-btn">SHOP NOW</a>
+                        <span>THƠM NGON TUYỆT DIỆU</span>
+                        <h2>Cà phê <br />100% tự nhiên, nguyên chất</h2>
+                        <p>Chọn ngay và giao hàng miễn phí</p>
+                        <a href="#" class="primary-btn">Mua ngay</a>
                     </div>
                 </div>
             </div>
@@ -151,12 +152,12 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="banner__pic">
-                    <img src="../img/banner/banner-1.jpg" alt="">
+                    <img src="../img/banner/banner-4.jpg" alt="">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="banner__pic">
-                    <img src="../img/banner/banner-2.jpg" alt="">
+                    <img src="../img/banner/banner-5.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -169,7 +170,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-6">
                 <div class="latest-product__text">
-                    <h4>Best Sellers</h4>
+                    <h4>Sản phẩm bán chạy</h4>
                     <div class="latest-product__slider owl-carousel">
                         <div class="latest-prdouct__slider__item">
                             @for (int i = 0; i < 3; i++)
@@ -416,7 +417,7 @@
             <!-- Modal footer -->
             <div class="modal-footer row">
                 <button type="button" class="btn btn-secondary col-sm-3 pl-3 btn-login">Đăng nhập/ đăng ký</button>
-                <button type="button" class="btn btn-secondary col-sm-3" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary col-sm-3" data-dismiss="modal">Đóng</button>
             </div>
 
         </div>

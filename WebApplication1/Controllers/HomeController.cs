@@ -29,14 +29,11 @@ namespace WebApplication1.Controllers
         {
             ReadAllProducts();
             ReadAllProductTypes();
+            ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
             ViewData["cart"] = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -44,6 +41,10 @@ namespace WebApplication1.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult UnauthorizedAccess()
+        {
+            return View("Views/Shared/UnauthorizedAccess.cshtml");
+        }
         public void loadNameProduct()
         {
 

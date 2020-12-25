@@ -21,7 +21,7 @@
                             $(".total-price > span").text(data.cart.total);
                             $(".total-cart > span").text(data.cart.total);
                             $(".subtotal-cart > span").text(data.cart.total);
-                            $(".shoppịng-bag").popover("show");
+                            $(".shopping-bag").popover("show");
                         }
                     })
             }
@@ -308,7 +308,7 @@
                 else {
                     alert("không thành công");
                 }
-            })
+            });
         var $item = $button.parent().parent().parent().parent();
         var gia = $item.find(".shoping__cart__price").text();
         $item.find(".shoping__cart__total").text(gia * newVal);

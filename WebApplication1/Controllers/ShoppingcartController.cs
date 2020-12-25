@@ -24,11 +24,12 @@ namespace WebApplication1.Controllers
             if (HttpContext.Request.Cookies["user_id"] != null)
             {
                 Userid = int.Parse(HttpContext.Request.Cookies["user_id"]);
-
                 a = Function.GetCartOfCurrentUser(HttpContext.Request.Cookies["user_id"]);
                 Cartid = a.CartId;
                 ViewData["items"] = getListItemInCart(a.CartId);
                 ViewData["cartdetails"] = getListOfCartDetail(a.CartId);
+                ViewData["kh"] = Function.getCurrentUser(HttpContext.Request.Cookies["user_id"]);
+                ViewData["isSignin"] = Userid;
                 Console.WriteLine("yo");
             }
             ViewData["cart"] = a;

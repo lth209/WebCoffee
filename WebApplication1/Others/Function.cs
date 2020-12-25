@@ -32,5 +32,31 @@ namespace WebApplication1.Others
                 return res;
             }
         }
+
+        public static Khachhang getCurrentUser(String uid)
+        {
+            if (String.IsNullOrEmpty(uid)) return null;
+            int userid = int.Parse(uid);
+            using(Context context = new Context())
+            {
+                var user = context.Khachhang.Where(p => p.Matk == userid).Single();
+                return user;
+            }
+        }
+
+        public static Boolean CheckRole(int id)
+        {
+            //int id = int.Parse(uid);
+            using (Context context = new Context())
+            {
+                Users currentuser = context.Users.Where(p => p.Id == id).Single();
+                if (currentuser.Maquyen == 2)   //Admin
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     }
 }
